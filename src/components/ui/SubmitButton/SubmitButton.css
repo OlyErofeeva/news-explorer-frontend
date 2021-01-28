@@ -1,0 +1,44 @@
+@import url(../../../vendor/fonts/fonts.css); /* TODO: do i need this? */
+
+.submit-button {
+  box-sizing: border-box;
+  padding: 20px 36px;
+  border: none;
+  border-radius: 100px;
+  font-family: 'Roboto', Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  transition: background-color .15s ease-out;
+}
+
+.submit-button:focus {
+  outline: none;
+}
+
+.submit-button_state_active {
+  color: #fff;
+  background-color: #2f71e5;
+  box-shadow: 0px 5px 15px rgba(14, 16, 57, 0.2);
+}
+
+.submit-button_state_active:hover {
+  cursor: pointer;
+  background-color: #347eff;
+}
+
+.submit-button_state_active:focus {
+  background-color: #2a65cc;
+}
+
+.submit-button_state_inactive {
+  color: #b6bcbf;
+  background-color: #e6e8eb;
+}
+
+
+@media screen and (max-width: 768px) {
+  .submit-button {
+    padding: 16px 32px;
+  }
+}
