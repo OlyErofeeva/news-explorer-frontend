@@ -1,10 +1,9 @@
 import React from 'react';
-import './CommonButton.css';
-/* TODO: enable "react/prop-types" for eslint */
+import './AccentButton.css';
 
-function CommonButton({
+function AccentButton({
   caption,
-  isSubmit = false,
+  isSubmit = true,
   isActive = true,
   className = '',
   handleClick,
@@ -12,8 +11,8 @@ function CommonButton({
   return (
     <button
       className={`
-        common-button
-        ${isActive ? 'common-button_state_active' : 'common-button_state_inactive'}
+        accent-button
+        ${isActive ? 'accent-button_state_active' : 'accent-button_state_inactive'}
         ${className}
       `}
       type={isSubmit ? 'submit' : 'button'}
@@ -24,4 +23,4 @@ function CommonButton({
   );
 }
 
-export default CommonButton;
+export default AccentButton;
