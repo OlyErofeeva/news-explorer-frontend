@@ -1,0 +1,59 @@
+@import url(../../../vendor/fonts/fonts.css); /* TODO: do i need this? */
+
+.secondary-button {
+  box-sizing: border-box;
+  padding: 11px 16px;
+  border: 1px solid;
+  border-radius: 100px;
+  font-family: 'Roboto', Helvetica, sans-serif;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 24px;
+  background-color: transparent;
+  transition:
+    opacity .15s ease-out,
+    border-color .15s ease-out;
+}
+
+.secondary-button:hover {
+  cursor: pointer;
+}
+
+.secondary-button:focus {
+  outline: none;
+}
+
+
+.secondary-button_theme_dark {
+  color: #fff;
+  border-color: rgb(255, 255, 255);
+}
+
+.secondary-button_theme_dark:hover {
+  border-color: rgba(255, 255, 255, .4);
+}
+
+
+.secondary-button_theme_light {
+  color: #1a1b22;
+  border-color: #d1d2d6;
+}
+
+.secondary-button_theme_light:hover {
+  border-color: #1a1b22;
+}
+
+
+@media screen and (max-width: 768px) {
+  .secondary-button {
+    padding: 7px 13px;
+    font-size: 16px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .secondary-button {
+    padding: 15px 31px;
+    font-size: 18px;
+  }
+}
