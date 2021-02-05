@@ -11,8 +11,7 @@
   max-width: 1232px;
   margin: 0 auto;
   display: grid;
-  /* TODO: improve adaptive */
-  grid-template-columns: minmax(40%, max-content) 1fr 72px;
+  grid-template-columns: 40% auto 72px;
   grid-template-rows: 1fr;
   column-gap: 56px;
   grid-template-areas:
@@ -35,6 +34,7 @@
 .footer__letter-links-wrapper {
   grid-area: letter-links;
   display: flex;
+  flex-wrap: wrap;
 }
 
 .footer__navigation {

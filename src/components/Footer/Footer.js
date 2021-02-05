@@ -6,15 +6,13 @@ import {
   externalLinks,
   socialNetworksLinks,
 } from '../../configs/links';
-import copyrightText from '../../configs/texts';
 
 function Footer() {
   return (
     <footer className="footer">
       <div className="footer__content">
         <p className="footer__copyright">
-          &copy;
-          {copyrightText}
+          &copy; 2020 NewsExplorer, Powered by News&nbsp;API
         </p>
 
         <div className="footer__letter-links-wrapper">
