@@ -11,9 +11,9 @@ function Footer() {
   return (
     <footer className="footer">
       <div className="footer__content">
-        <p className="footer__copyright">
+        <small className="footer__copyright">
           &copy; 2020 NewsExplorer, Powered by News&nbsp;API
-        </p>
+        </small>
 
         <div className="footer__letter-links-wrapper">
           <nav className="footer__navigation">
