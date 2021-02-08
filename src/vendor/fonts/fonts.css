@@ -23,6 +23,12 @@
 }
 
 @font-face {
+  src: url(roboto-700.woff) format('woff');
+  font-family: 'Roboto';
+  font-weight: 700;
+}
+
+@font-face {
   src: url(roboto-900.woff) format('woff');
   font-family: 'Roboto';
   font-weight: 900;
