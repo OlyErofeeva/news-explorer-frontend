@@ -6,6 +6,7 @@ import BookmarkIcon from '../../svg/BookmarkIcon/BookmarkIcon';
 function BookmarkButton({
   className = '',
   isSelected = false,
+  handleClick,
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -22,6 +23,7 @@ function BookmarkButton({
       type="button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
+      onClick={handleClick}
     >
       <BookmarkIcon isHovered={isHovered} isSelected={isSelected} />
     </button>
