@@ -1,5 +1,8 @@
 .bookmark-icon {
   stroke-width: 2px;
+  transition:
+    stroke .15s ease-out,
+    fill .15s ease-out;
 }
 
 .bookmark-icon_state_unselected {
