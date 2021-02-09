@@ -1,6 +1,5 @@
 import React from 'react';
 import './CommonButton.css';
-/* TODO: enable "react/prop-types" for eslint */
 
 function CommonButton({
   caption,
