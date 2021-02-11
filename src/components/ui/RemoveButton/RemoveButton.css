@@ -18,3 +18,15 @@
   box-shadow: 0 0 0 2px #347EFF;
   border-radius: 2px;
 }
+
+
+/* for a button with tooltip: */
+
+.remove-button-wrapper {
+  max-width: 85%;
+  display: flex;
+}
+
+.remove-button-tooltip {
+  margin-right: 5px;
+}
