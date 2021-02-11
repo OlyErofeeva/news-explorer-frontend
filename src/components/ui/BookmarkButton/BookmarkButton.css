@@ -18,3 +18,15 @@
   box-shadow: 0 0 0 2px #347EFF;
   border-radius: 2px;
 }
+
+
+/* for a button with tooltip: */
+
+.bookmark-button-wrapper {
+  max-width: 85%;
+  display: flex;
+}
+
+.bookmark-button-tooltip {
+  margin-right: 5px;
+}
