@@ -1,0 +1,28 @@
+.navigation__links {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  display: flex;
+}
+
+.navigation__link {
+  margin-right: 32px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .navigation__link {
+    margin-right: 16px;
+  }
+}
+
+
+@media screen and (max-width: 550px) {
+  .navigation__links {
+    flex-direction: column;
+  }
+
+  .navigation__link {
+    margin-right: 0;
+  }
+}
