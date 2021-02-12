@@ -7,6 +7,7 @@ function SecondaryButton({
   isDarkTheme = false,
   className = '',
   handleClick,
+  Icon,
 }) {
   return (
     <button
@@ -19,6 +20,7 @@ function SecondaryButton({
       onClick={handleClick}
     >
       {caption}
+      { Icon && <Icon className="secondary-button__icon" isDarkTheme={isDarkTheme} />}
     </button>
   );
 }
