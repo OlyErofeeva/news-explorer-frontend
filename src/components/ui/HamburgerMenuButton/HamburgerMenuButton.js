@@ -7,7 +7,7 @@ import HamburgerMenuCloseIcon from '../../svg/HamburgerMenuCloseIcon/HamburgerMe
 function HamburgerMenuButton({
   className = '',
   isDarkTheme,
-  isMenuExtended,
+  isMenuExtended = false,
   handleClick,
 }) {
   return (
@@ -17,8 +17,8 @@ function HamburgerMenuButton({
       onClick={handleClick}
     >
       {isMenuExtended
-        ? <HamburgerMenuIcon isDarkTheme={isDarkTheme} />
-        : <HamburgerMenuCloseIcon isDarkTheme={isDarkTheme} />}
+        ? <HamburgerMenuCloseIcon isDarkTheme={isDarkTheme} />
+        : <HamburgerMenuIcon isDarkTheme={isDarkTheme} />}
     </button>
   );
 }
