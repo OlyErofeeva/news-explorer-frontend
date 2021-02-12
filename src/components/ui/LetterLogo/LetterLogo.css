@@ -9,6 +9,16 @@
   text-decoration: none;
 }
 
+.letter-logo:hover {
+  cursor: pointer;
+}
+
+.letter-logo:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #347eff;
+  border-radius: 2px;
+}
+
 .letter-logo_theme_dark {
   color: #fff;
 }
