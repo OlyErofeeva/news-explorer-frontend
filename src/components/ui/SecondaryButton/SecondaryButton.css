@@ -2,6 +2,7 @@
 
 .secondary-button {
   display: flex; /* for a button with an icon */
+  justify-content: center;
   box-sizing: border-box;
   padding: 11px 16px;
   border: 1px solid;
