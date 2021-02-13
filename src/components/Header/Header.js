@@ -13,6 +13,8 @@ function Header({
   isLoggedIn = false,
   isDarkTheme = false,
   selectedNavLink,
+  openLoginPopup,
+  handleLogout,
 }) {
   const [isHamburgerMenuShown, setIsHamburgerMenuShown] = useState(false);
 
@@ -60,6 +62,7 @@ function Header({
                 caption="Грета"
                 Icon={LogoutIcon}
                 isDarkTheme={isDarkTheme}
+                handleClick={handleLogout}
               />
             )
             : (
@@ -67,6 +70,7 @@ function Header({
                 className="header__button"
                 caption="Авторизоваться"
                 isDarkTheme={isDarkTheme}
+                handleClick={openLoginPopup}
               />
             )}
         </div>
