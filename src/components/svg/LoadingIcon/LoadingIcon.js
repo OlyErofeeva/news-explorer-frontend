@@ -6,9 +6,9 @@ function LoadingIcon() {
     <svg width="74" height="74" viewBox="0 0 38 38">
       <defs>
         <linearGradient x1="8.042%" y1="0%" x2="65.682%" y2="23.865%" id="a">
-          <stop stopColor="#1a1b22" stopOpacity="0" offset="0%" />
-          <stop stopColor="#1a1b22" stopOpacity=".631" offset="63.146%" />
-          <stop stopColor="#1a1b22" offset="100%" />
+          <stop stopColor="#b6bcbf" stopOpacity="0" offset="0%" />
+          <stop stopColor="#b6bcbf" stopOpacity=".631" offset="63.146%" />
+          <stop stopColor="#b6bcbf" offset="100%" />
         </linearGradient>
       </defs>
       <g fill="none" fillRule="evenodd">
@@ -23,7 +23,7 @@ function LoadingIcon() {
               repeatCount="indefinite"
             />
           </path>
-          <circle fill="#1a1b22" cx="36" cy="18" r="0.5">
+          <circle fill="#b6bcbf" cx="36" cy="18" r="0.5">
             <animateTransform
               attributeName="transform"
               type="rotate"
