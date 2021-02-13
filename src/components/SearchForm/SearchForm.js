@@ -3,12 +3,18 @@ import './SearchForm.css';
 
 import AccentButton from '../ui/AccentButton/AccentButton';
 
-function SearchForm({ className }) {
+function SearchForm({ className, submitHandler }) {
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    submitHandler();
+  };
+
   return (
     <form
       className={`search-form ${className}`}
       name="search"
       noValidate
+      onSubmit={handleSubmit}
     >
       <h1 className="search-form__title">
         Что творится в
