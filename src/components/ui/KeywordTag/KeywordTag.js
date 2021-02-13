@@ -2,7 +2,7 @@ import React from 'react';
 import './KeywordTag.css';
 
 function KeywordTag({
-  caption,
+  caption = '',
   className = '',
 }) {
   return (
