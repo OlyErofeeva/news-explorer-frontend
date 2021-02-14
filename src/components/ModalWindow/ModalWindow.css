@@ -93,3 +93,28 @@
   box-shadow: 0 0 0 2px #347EFF;
   border-radius: 2px;
 }
+
+
+@media screen and (max-width: 550px) {
+  .modal {
+    background-image: url(../../images/main-background.png);
+    background-repeat: no-repeat;
+    background-position: 0%;
+    background-size: cover;
+  }
+
+  .modal__content {
+    align-self: flex-end;
+    justify-content: flex-start;
+    width: 100%;
+    height: calc(100% - 56px);
+    padding: 16px;
+    border-radius: 16px 16px 0 0;
+  }
+
+  .modal__close-button {
+    bottom: calc(100% + 8px);
+    left: auto;
+    right: 8px;
+  }
+}
