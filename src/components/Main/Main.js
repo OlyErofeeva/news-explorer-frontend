@@ -3,7 +3,7 @@ import './Main.css';
 
 import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
-import NewsCardList from '../NewsCardList/NewsCardList';
+import SearchResult from '../SearchResult/SearchResult';
 import About from '../About/About';
 import newsApiResponse from '../../db/newsApiResponse';
 
@@ -43,10 +43,8 @@ function Main({ isLoggedIn, openLoginPopup, handleLogout }) {
         <SearchForm className="main__search-form" submitHandler={handleSearchFormSubmit} />
       </div>
       {isSearchStarted && (
-        <NewsCardList
-          title="Результаты поиска"
+        <SearchResult
           cards={foundNews}
-          isFoundNewsList
           isLoading={isLoading}
           isLoggedIn={isLoggedIn}
         />

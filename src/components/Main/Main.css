@@ -1,3 +1,7 @@
+.main {
+  flex-grow: 1;
+}
+
 .main__container-with-background {
   background-color: #1a1b22;
   background-image: url(../../images/main-background.png);
