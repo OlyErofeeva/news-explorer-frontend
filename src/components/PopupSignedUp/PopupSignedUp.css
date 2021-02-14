@@ -1,0 +1,22 @@
+.popup-signed-up__button {
+  align-self: flex-start;
+  margin: 0;
+  padding: 0;
+  border: none;
+  font-family: 'Inter', Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  color: #2f71e5;
+  background-color: transparent;
+}
+
+.popup-signed-up__button:hover {
+  cursor: pointer;
+}
+
+.popup-signed-up__button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #347eff;
+  border-radius: 2px;
+}
