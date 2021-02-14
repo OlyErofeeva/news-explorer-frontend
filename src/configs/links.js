@@ -1,19 +1,24 @@
 import FacebookIcon from '../components/svg/FacebookIcon/FacebookIcon';
 import GitHubIcon from '../components/svg/GitHubIcon/GitHubIcon';
 
+// NB: id is used for string matching
 const navigationLinks = [
   {
+    id: 'home',
     text: 'Главная',
     link: '/',
   },
 ];
 
+// NB: id is used for string matching
 const authNavigationLinks = [
   {
+    id: 'home',
     text: 'Главная',
     link: '/',
   },
   {
+    id: 'bookmarks',
     text: 'Сохранённые статьи',
     link: '/saved-news',
   },
