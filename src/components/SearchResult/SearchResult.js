@@ -7,6 +7,7 @@ import Preloader from '../Preloader/Preloader';
 import NewsCardList from '../NewsCardList/NewsCardList';
 
 function SearchResult({
+  isKeywordEmpty,
   cards,
   isLoading,
   isLoggedIn,
@@ -18,7 +19,14 @@ function SearchResult({
           ? (<Preloader message="Идет поиск новостей..." />)
           : (
             <>
-              {(cards.length === 0) && (
+              {((cards.length === 0) && isKeywordEmpty) && (
+                <SearchError
+                  errTitle="Ничего не найдено"
+                  errDescription="Задан пустой поисковой запрос"
+                />
+              )}
+
+              {((cards.length === 0) && !isKeywordEmpty) && (
                 <SearchError
                   errTitle="Ничего не найдено"
                   errDescription="К сожалению по вашему запросу ничего не найдено"

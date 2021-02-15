@@ -1,12 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './SearchForm.css';
 
 import AccentButton from '../ui/AccentButton/AccentButton';
 
 function SearchForm({ className, submitHandler }) {
+  const [keyword, setKeyword] = useState('');
+
+  const handleKeywordInputChange = (event) => {
+    setKeyword(event.target.value);
+  };
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    submitHandler();
+    submitHandler(keyword.trim().toLowerCase());
   };
 
   return (
@@ -32,6 +38,8 @@ function SearchForm({ className, submitHandler }) {
           placeholder="Введите тему новости"
           type="text"
           required
+          value={keyword}
+          onChange={handleKeywordInputChange}
         />
         <AccentButton
           caption="Искать"

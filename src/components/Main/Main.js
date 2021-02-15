@@ -11,23 +11,37 @@ function Main({ isLoggedIn, openLoginPopup, handleLogout }) {
   const [foundNews, setFoundNews] = useState([]);
   const [isSearchStarted, setIsSearchStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isKeywordEmpty, setIsKeyWordEmpty] = useState(true);
 
-  const handleSearchFormSubmit = (keyword = 'Природа') => {
+  const handleSearchFormSubmit = (keyword) => {
     setIsSearchStarted(true);
-    setIsLoading(true);
-    const result = newsApiResponse.articles.map((article) => ({
-      keyword,
-      title: article.title,
-      text: article.description,
-      date: article.publishedAt,
-      source: article.source.name,
-      link: article.url,
-      image: article.urlToImage,
-    }));
-    setFoundNews(result);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 3000);
+    setFoundNews([]);
+
+    if (keyword === '') {
+      setIsKeyWordEmpty(true);
+    } else {
+      setIsKeyWordEmpty(false);
+      setIsLoading(true);
+      const result = newsApiResponse.articles.map((article) => ({
+        keyword,
+        title: article.title,
+        text: article.description,
+        date: article.publishedAt,
+        source: article.source.name,
+        link: article.url,
+        image: article.urlToImage,
+      }));
+
+      if (keyword === 'вечеринки') {
+        setFoundNews([]);
+      } else {
+        setFoundNews(result);
+      }
+
+      setTimeout(() => {
+        setIsLoading(false);
+      }, 3000);
+    }
   };
 
   return (
@@ -44,6 +58,7 @@ function Main({ isLoggedIn, openLoginPopup, handleLogout }) {
       </div>
       {isSearchStarted && (
         <SearchResult
+          isKeywordEmpty={isKeywordEmpty}
           cards={foundNews}
           isLoading={isLoading}
           isLoggedIn={isLoggedIn}
