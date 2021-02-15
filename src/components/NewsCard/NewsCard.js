@@ -6,7 +6,10 @@ import BookmarkButtonWithTooltip from '../ui/BookmarkButton/BookmarkButtonWithTo
 import RemoveButtonWithTooltip from '../ui/RemoveButton/RemoveButtonWithTooltip';
 import KeywordTag from '../ui/KeywordTag/KeywordTag';
 
+import truncateWithEllipsis from '../../utils/truncateWithEllipsis';
+
 // next stage TODO: format timestamp & replace the mockup
+// magic string lengths -> constants
 
 function NewsCard({
   card,
@@ -72,8 +75,8 @@ function NewsCard({
         rel="noreferrer"
       >
         <p className="news-card__timestamp">2 августа, 2019</p>
-        <h3 className="news-card__title">{card.title}</h3>
-        <p className="news-card__text">{card.text}</p>
+        <h3 className="news-card__title">{truncateWithEllipsis(card.title, 60)}</h3>
+        <p className="news-card__text">{truncateWithEllipsis(card.text, 190)}</p>
         <p className="news-card__source">{card.source}</p>
       </a>
     </article>
