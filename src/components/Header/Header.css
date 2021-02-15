@@ -1,11 +1,18 @@
 .header {
   position: relative;
+  box-sizing: border-box;
+  width: 100%;
   padding: 20px 40px 0;
+  z-index: 30;
+}
+
+.header__content {
+  max-width: 1232px;
+  margin: 0 auto;
   display: flex;
   align-items: baseline;
   justify-content: space-between;
   align-content: center;
-  z-index: 30;
 }
 
 .header_theme_dark {
@@ -44,6 +51,9 @@
 @media screen and (max-width: 550px) {
   .header {
     padding: 16px;
+  }
+
+  .header__content {
     align-items: center;
   }
 

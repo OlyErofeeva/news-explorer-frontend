@@ -40,47 +40,49 @@ function Header({
   return (
     <>
       <header className={`header ${resolveHeaderClassName()}`}>
-        <LetterLogo isDarkTheme={isDarkTheme} />
+        <div className="header__content">
+          <LetterLogo isDarkTheme={isDarkTheme} />
 
-        <div
-          className={`
-            header__control-wrapper
-            ${isDarkTheme ? 'header__control-wrapper_theme_dark' : 'header__control-wrapper_theme_light'}
-            ${isHamburgerMenuShown ? '' : 'header__control-wrapper_hidden'}
-          `}
-        >
-          <Navigation
-            links={isLoggedIn ? authNavigationLinks : navigationLinks}
+          <div
+            className={`
+              header__control-wrapper
+              ${isDarkTheme ? 'header__control-wrapper_theme_dark' : 'header__control-wrapper_theme_light'}
+              ${isHamburgerMenuShown ? '' : 'header__control-wrapper_hidden'}
+            `}
+          >
+            <Navigation
+              links={isLoggedIn ? authNavigationLinks : navigationLinks}
+              isDarkTheme={isDarkTheme}
+              selectedNavLink={selectedNavLink}
+            />
+
+            {isLoggedIn
+              ? (
+                <SecondaryButton
+                  className="header__button"
+                  caption="Грета"
+                  Icon={LogoutIcon}
+                  isDarkTheme={isDarkTheme}
+                  handleClick={handleLogout}
+                />
+              )
+              : (
+                <SecondaryButton
+                  className="header__button"
+                  caption="Авторизоваться"
+                  isDarkTheme={isDarkTheme}
+                  handleClick={openLoginPopup}
+                />
+              )}
+          </div>
+
+          <HamburgerMenuButton
+            className="header__hamburger-button"
+            handleClick={hamburgerClickHandler}
+            isMenuExtended={isHamburgerMenuShown}
             isDarkTheme={isDarkTheme}
-            selectedNavLink={selectedNavLink}
           />
-
-          {isLoggedIn
-            ? (
-              <SecondaryButton
-                className="header__button"
-                caption="Грета"
-                Icon={LogoutIcon}
-                isDarkTheme={isDarkTheme}
-                handleClick={handleLogout}
-              />
-            )
-            : (
-              <SecondaryButton
-                className="header__button"
-                caption="Авторизоваться"
-                isDarkTheme={isDarkTheme}
-                handleClick={openLoginPopup}
-              />
-            )}
         </div>
-
-        <HamburgerMenuButton
-          className="header__hamburger-button"
-          handleClick={hamburgerClickHandler}
-          isMenuExtended={isHamburgerMenuShown}
-          isDarkTheme={isDarkTheme}
-        />
       </header>
 
       {isHamburgerMenuShown && (
