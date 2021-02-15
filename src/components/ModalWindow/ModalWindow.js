@@ -11,8 +11,15 @@ function ModalWindow({
   className = '',
   additionalAction,
 }) {
+  const closeOnOverlayClick = (event) => {
+    if (event.target.classList.contains('modal_opened')) {
+      onClose();
+    }
+  };
+
   return (
-    <div className={`modal ${isOpen ? 'modal_opened' : ''} ${className}`}>
+    // disabled jsx-a11y/no-static-element-interactions for overlay click
+    <div className={`modal ${isOpen ? 'modal_opened' : ''} ${className}`} onMouseDown={closeOnOverlayClick} > {/* eslint-disable-line */}
       <div className="modal__content">
         <CloseButton
           className="modal__close-button"

@@ -62,6 +62,14 @@ function App() {
     if (token) {
       setIsLoggedIn(true);
     }
+
+    const closePopupOnEsc = (event) => {
+      if (event.key === 'Escape') {
+        closeAllPopups();
+      }
+    };
+    document.addEventListener('keydown', closePopupOnEsc);
+    return () => document.removeEventListener('keydown', closePopupOnEsc);
   }, []);
 
   return (
