@@ -40,6 +40,9 @@
   color: #1a1b22;
   caret-color: #2f71e5;
   transition: border-color .15s ease-out;
+  -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
 }
 
 .search-form__input::placeholder {
