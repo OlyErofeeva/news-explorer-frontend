@@ -1,14 +1,18 @@
-/* TODO: clean this up */
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import url(./vendor/fonts/fonts.css);
+
+.html {
+  height: 100%;
+  overflow: auto;
+
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.body {
+  margin: 0;
+  height: 100%;
+  overflow: auto;
+  background-color: #f5f6f7;
+}
+
+.root {
+  height: 100%;
 }
