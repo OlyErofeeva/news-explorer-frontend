@@ -6,13 +6,14 @@ import BookmarkButtonWithTooltip from '../ui/BookmarkButton/BookmarkButtonWithTo
 import RemoveButtonWithTooltip from '../ui/RemoveButton/RemoveButtonWithTooltip';
 import KeywordTag from '../ui/KeywordTag/KeywordTag';
 
-// TODO: format timestamp & replace the mockup
+// next stage TODO: format timestamp & replace the mockup
 
 function NewsCard({
   card,
   isFoundNewsCard,
   isSavedNewsCard,
   isLoggedIn,
+  onRemoveBookmark,
 }) {
   const [isSelected, setIsSelected] = useState(false);
 
@@ -21,8 +22,7 @@ function NewsCard({
   };
 
   const removeClickHandler = () => {
-    // TODO: actually remove the card
-    setIsSelected(true);
+    onRemoveBookmark(card._id);
   };
 
   return (

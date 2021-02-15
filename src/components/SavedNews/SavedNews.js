@@ -13,12 +13,17 @@ function SavedNews({ isLoggedIn, handleLogout }) {
 
   const getBookmarks = () => bookmarksApiResponse;
 
+  const onRemoveBookmark = (bookmarkId) => {
+    const newBookmarks = bookmarks.filter((item) => item._id !== bookmarkId);
+    setBookmarks(newBookmarks);
+  };
+
   useEffect(() => {
     setIsLoading(true);
     setBookmarks(getBookmarks());
     setTimeout(() => {
       setIsLoading(false);
-    }, 3000);
+    }, 2000);
   }, []);
 
   return (
@@ -39,6 +44,7 @@ function SavedNews({ isLoggedIn, handleLogout }) {
                   cards={bookmarks}
                   isLoggedIn
                   isSavedNewsList
+                  onRemoveBookmark={onRemoveBookmark}
                 />
               )}
           </div>
