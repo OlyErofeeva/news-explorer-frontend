@@ -1,9 +1,7 @@
-@import url(../../vendor/fonts/fonts.css); /* TODO: do i need this? */
-
 .footer {
   box-sizing: border-box;
   width: 100%;
-  padding: 30px 40px;
+  padding: 32px 40px 26px;
   background-color: #fff;
 }
 
@@ -104,6 +102,7 @@
   border-radius: 2px;
 }
 
+
 @media screen and (max-width: 1024px) {
   .footer__content {
     column-gap: 32px;
@@ -115,9 +114,16 @@
 }
 
 
+@media screen and (max-width: 768px) {
+  .footer {
+    padding: 24px 40px 18px;
+  }
+}
+
+
 @media screen and (max-width: 550px) {
   .footer {
-    padding: 20px 16px;
+    padding: 20px 16px 22px;
   }
 
   .footer__content {

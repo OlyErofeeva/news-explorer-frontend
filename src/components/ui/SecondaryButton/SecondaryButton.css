@@ -1,5 +1,3 @@
-@import url(../../../vendor/fonts/fonts.css); /* TODO: do i need this? */
-
 .secondary-button {
   display: flex; /* for a button with an icon */
   justify-content: center;
