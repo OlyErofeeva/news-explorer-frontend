@@ -1,0 +1,32 @@
+.bookmark-button {
+  border: none;
+  border-radius: 8px;
+  width: 40px;
+  height: 40px;
+  padding: 8px;
+  background-color: #fff;
+  transition: box-shadow .15s ease-out;
+}
+
+.bookmark-button:hover {
+  cursor: pointer;
+  box-shadow: 0px 4px 12px rgba(14, 16, 57, 0.2);
+}
+
+.bookmark-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #347EFF;
+  border-radius: 2px;
+}
+
+
+/* for a button with tooltip: */
+
+.bookmark-button-wrapper {
+  max-width: 85%;
+  display: flex;
+}
+
+.bookmark-button-tooltip {
+  margin-right: 5px;
+}

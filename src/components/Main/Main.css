@@ -1,0 +1,33 @@
+.main {
+  flex-grow: 1;
+}
+
+.main__container-with-background {
+  background-color: #1a1b22;
+  background-image: url(../../images/main-background.png);
+  background-repeat: no-repeat;
+  background-position: 50%;
+  background-size: cover;
+}
+
+.main__search-form {
+  margin: auto;
+  max-width: 608px;
+  padding: 80px;
+}
+
+
+@media screen and (max-width: 768px) {
+  .main__search-form {
+    max-width: 452px;
+    padding: 38px 40px 48px;
+  }
+}
+
+
+@media screen and (max-width: 550px) {
+  .main__search-form {
+    max-width: 452px;
+    padding: 30px 16px 32px;
+  }
+}

@@ -1,0 +1,18 @@
+@import url(./vendor/fonts/fonts.css);
+
+.html {
+  height: 100%;
+  overflow: auto;
+
+}
+
+.body {
+  margin: 0;
+  height: 100%;
+  overflow: auto;
+  background-color: #f5f6f7;
+}
+
+.root {
+  height: 100%;
+}

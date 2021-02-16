@@ -1,0 +1,26 @@
+.bookmark-icon {
+  stroke-width: 2px;
+  transition:
+    stroke .15s ease-out,
+    fill .15s ease-out;
+}
+
+.bookmark-icon_state_unselected {
+  stroke: #B6BCBF;
+  fill: none;
+}
+
+.bookmark-icon_state_unselected-hovered {
+  stroke: #1A1B22;
+  fill: none;
+}
+
+.bookmark-icon_state_selected {
+  stroke: #2F71E5;
+  fill: #2F71E5;
+}
+
+.bookmark-icon_state_selected-hovered {
+  stroke: #347eff;
+  fill: #347eff;
+}

@@ -1,0 +1,20 @@
+.hamburger-button {
+  border: none;
+  margin: 0;
+  padding: 0;
+  line-height: 0;
+  background-color: transparent;
+  transition:
+    opacity .15s ease-out,
+    box-shadow .15s ease-out;
+}
+
+.hamburger-button:hover {
+  opacity: .7;
+}
+
+.hamburger-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #347EFF;
+  border-radius: 2px;
+}

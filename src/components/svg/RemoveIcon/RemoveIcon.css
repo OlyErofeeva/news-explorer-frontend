@@ -1,0 +1,11 @@
+.remove-icon {
+  transition: fill .15s ease-out;
+}
+
+.remove-icon_state_default {
+  fill: #b6bcbf;
+}
+
+.remove-icon_state_hovered {
+  fill: #1a1b22;
+}
