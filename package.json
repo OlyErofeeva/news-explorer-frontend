@@ -23,7 +23,7 @@
       "airbnb"
     ],
     "rules": {
-      "no-underscore-dangle":  ["error", { "allow": ["_id"] }],
+      "no-underscore-dangle":  ["error", { "allow": ["_id", "_baseUrl", "_headers"] }],
       "react/jsx-filename-extension": [
         1,
         {
