@@ -10,7 +10,7 @@ import PopupWithSignUpForm from '../PopupWithForm/PopupWithSignUpForm';
 import PopupSignedUp from '../PopupSignedUp/PopupSignedUp';
 
 import newsApi from '../../utils/NewsApi';
-import daysToMsec from '../../utils/daysToMsec';
+import { daysToMsec } from '../../utils/dateUtils';
 import { SEARCH_INTERVAL_DAYS } from '../../configs';
 
 function App() {

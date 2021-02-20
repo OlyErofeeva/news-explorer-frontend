@@ -7,9 +7,7 @@ import RemoveButtonWithTooltip from '../ui/RemoveButton/RemoveButtonWithTooltip'
 import KeywordTag from '../ui/KeywordTag/KeywordTag';
 
 import truncateWithEllipsis from '../../utils/truncateWithEllipsis';
-
-// next stage TODO: format timestamp & replace the mockup
-// magic string lengths -> constants
+import { dateToDisplay } from '../../utils/dateUtils';
 
 function NewsCard({
   card,
@@ -74,7 +72,7 @@ function NewsCard({
         target="_blank"
         rel="noreferrer"
       >
-        <p className="news-card__timestamp">2 августа, 2019</p>
+        <p className="news-card__timestamp">{dateToDisplay(card.date)}</p>
         <h3 className="news-card__title">{truncateWithEllipsis(card.title, 60)}</h3>
         <p className="news-card__text">{truncateWithEllipsis(card.text, 190)}</p>
         <p className="news-card__source">{card.source}</p>
