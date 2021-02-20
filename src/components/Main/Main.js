@@ -5,43 +5,45 @@ import Header from '../Header/Header';
 import SearchForm from '../SearchForm/SearchForm';
 import SearchResult from '../SearchResult/SearchResult';
 import About from '../About/About';
-import newsApiResponse from '../../db/newsApiResponse';
 
-function Main({ isLoggedIn, openLoginPopup, handleLogout }) {
-  const [foundNews, setFoundNews] = useState([]);
+import { INITIAL_PAGE_SIZE, SHOW_MORE_PAGE_SIZE } from '../../configs';
+
+function Main({
+  isLoggedIn,
+  openLoginPopup,
+  handleLogout,
+  searchNews,
+}) {
+  const [shownNews, setShownNews] = useState([]);
   const [isSearchStarted, setIsSearchStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isKeywordEmpty, setIsKeyWordEmpty] = useState(true);
 
+  const isAllNewsShown = localStorage.getItem('cachedNews') && (shownNews.length === JSON.parse(localStorage.getItem('cachedNews')).length);
+
   const handleSearchFormSubmit = (keyword) => {
     setIsSearchStarted(true);
-    setFoundNews([]);
+    setShownNews([]);
 
     if (keyword === '') {
       setIsKeyWordEmpty(true);
     } else {
       setIsKeyWordEmpty(false);
       setIsLoading(true);
-      const result = newsApiResponse.articles.map((article) => ({
-        keyword,
-        title: article.title,
-        text: article.description,
-        date: article.publishedAt,
-        source: article.source.name,
-        link: article.url,
-        image: article.urlToImage,
-      }));
-
-      if (keyword === 'вечеринки') {
-        setFoundNews([]);
-      } else {
-        setFoundNews(result);
-      }
-
-      setTimeout(() => {
-        setIsLoading(false);
-      }, 3000);
+      searchNews(keyword)
+        .then((articles) => {
+          setShownNews(articles.slice(0, INITIAL_PAGE_SIZE));
+        })
+        .catch((err) => console.log(err))
+        .finally(() => {
+          setIsLoading(false);
+        });
     }
+  };
+
+  const handleShowMoreClick = () => {
+    const cachedArticles = JSON.parse(localStorage.getItem('cachedNews'));
+    setShownNews(cachedArticles.slice(0, shownNews.length + SHOW_MORE_PAGE_SIZE));
   };
 
   return (
@@ -59,9 +61,11 @@ function Main({ isLoggedIn, openLoginPopup, handleLogout }) {
       {isSearchStarted && (
         <SearchResult
           isKeywordEmpty={isKeywordEmpty}
-          cards={foundNews}
+          cards={shownNews}
           isLoading={isLoading}
           isLoggedIn={isLoggedIn}
+          handleShowMoreClick={handleShowMoreClick}
+          isAllNewsShown={isAllNewsShown}
         />
       )}
       <About />

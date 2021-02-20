@@ -11,6 +11,8 @@ function SearchResult({
   cards,
   isLoading,
   isLoggedIn,
+  handleShowMoreClick,
+  isAllNewsShown,
 }) {
   return (
     <section className="search-result">
@@ -21,8 +23,8 @@ function SearchResult({
             <>
               {((cards.length === 0) && isKeywordEmpty) && (
                 <SearchError
-                  errTitle="Ничего не найдено"
-                  errDescription="Задан пустой поисковой запрос"
+                  errTitle="Задан пустой поисковой запрос"
+                  errDescription="Нужно ввести ключевое слово"
                 />
               )}
 
@@ -41,10 +43,14 @@ function SearchResult({
                     isLoggedIn={isLoggedIn}
                     isFoundNewsList
                   />
-                  <CommonButton
-                    caption="Показать ещё"
-                    className="search-result__show-more-button"
-                  />
+                  {!isAllNewsShown && (
+                    <CommonButton
+                      caption="Показать ещё"
+                      className="search-result__show-more-button"
+                      handleClick={handleShowMoreClick}
+                    />
+                  )}
+
                 </>
               )}
             </>

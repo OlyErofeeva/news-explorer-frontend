@@ -1,16 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Route, Switch } from 'react-router-dom';
 import './App.css';
-// next stage TODO: enable "react/prop-types" for eslint
-// next stage TODO: use classnames
-// next stage TODO: generate _id for newsApi response & use id for keys
-// next stage TODO: consider refactoring in svg file structure
-// next stage TODO: minimize header when a popup opens (mobile)
-// next stage TODO: склонения, в т.ч. для кол-ва ключевых слов: "и по 2-м другим"
-// next stage TODO: текст, когда у пользователя нет сохраненных карточек
-// next stage TODO: доработать truncate, чтобы не отрезать части слов
-// TODO: typography mix
-// TODO: общие стили секций - mix
 
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
@@ -18,6 +8,10 @@ import Footer from '../Footer/Footer';
 import PopupWithLoginForm from '../PopupWithForm/PopupWithLoginForm';
 import PopupWithSignUpForm from '../PopupWithForm/PopupWithSignUpForm';
 import PopupSignedUp from '../PopupSignedUp/PopupSignedUp';
+
+import newsApi from '../../utils/NewsApi';
+import daysToMsec from '../../utils/daysToMsec';
+import { SEARCH_INTERVAL_DAYS } from '../../configs';
 
 function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -57,6 +51,34 @@ function App() {
     setIsLoggedIn(false);
   };
 
+  const searchNews = (keyword) => {
+    const dateFrom = new Date(Date.now() - daysToMsec(SEARCH_INTERVAL_DAYS))
+      .toISOString()
+      .substring(0, 10);
+
+    const dateTo = new Date(Date.now())
+      .toISOString()
+      .substring(0, 10);
+
+    return newsApi
+      .getArticles(keyword, dateFrom, dateTo)
+      .then((response) => {
+        const articles = response.articles.map((article) => ({
+          keyword,
+          title: article.title,
+          text: article.description,
+          date: article.publishedAt,
+          source: article.source.name,
+          link: article.url,
+          image: article.urlToImage,
+        }));
+
+        localStorage.setItem('cachedNews', JSON.stringify(articles));
+        return articles;
+      })
+      .catch((err) => console.log(err));
+  };
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -86,6 +108,7 @@ function App() {
             isLoggedIn={isLoggedIn}
             openLoginPopup={openLoginPopup}
             handleLogout={handleLogout}
+            searchNews={searchNews}
           />
         </Route>
       </Switch>
