@@ -8,24 +8,24 @@ import useValidatedState from '../../utils/useValidatedState';
 function PopupWithSignUpForm({
   isOpen,
   onClose,
-  openLoginPopup,
-  openSignUpMessagePopup,
+  onOpenLoginPopup,
+  onOpenSignUpMessagePopup,
 }) {
   const {
     inputState: emailInputState,
-    onChange: onEmailInputChange,
+    onChange: handleEmailInputChange,
     reset: resetEmailInput,
   } = useValidatedState('');
 
   const {
     inputState: passwordInputState,
-    onChange: onPasswordInputChange,
+    onChange: handlePasswordInputChange,
     reset: resetPasswordInput,
   } = useValidatedState('');
 
   const {
     inputState: nameInputState,
-    onChange: onNameInputChange,
+    onChange: handleNameInputChange,
     reset: resetNameInput,
   } = useValidatedState('');
 
@@ -36,7 +36,7 @@ function PopupWithSignUpForm({
   };
 
   const handleSignUp = () => {
-    openSignUpMessagePopup();
+    onOpenSignUpMessagePopup();
   };
 
   useEffect(() => {
@@ -47,19 +47,19 @@ function PopupWithSignUpForm({
 
   return (
     <PopupWithForm
-      isOpen={isOpen}
-      onClose={onClose}
       formTitle="Регистрация"
       submitButtonCaption="Зарегистрироваться"
-      isSubmitButtonActive={
-        emailInputState.isValid && passwordInputState.isValid && nameInputState.isValid
-      }
-      handleSubmit={handleSignUp}
       additionalAction={{
         text: 'или',
         buttonCaption: 'Войти',
-        handler: openLoginPopup,
+        handler: onOpenLoginPopup,
       }}
+      isOpen={isOpen}
+      isSubmitButtonActive={
+        emailInputState.isValid && passwordInputState.isValid && nameInputState.isValid
+      }
+      onClose={onClose}
+      onSubmit={handleSignUp}
     >
       <label className="form__input-label" htmlFor="signup-email">
         Email
@@ -71,7 +71,7 @@ function PopupWithSignUpForm({
           placeholder="Введите почту"
           required
           value={emailInputState.value}
-          onChange={onEmailInputChange}
+          onChange={handleEmailInputChange}
         />
         <span className="form__input-error">{emailInputState.errorMessage}</span>
       </label>
@@ -86,7 +86,7 @@ function PopupWithSignUpForm({
           placeholder="Введите пароль"
           required
           value={passwordInputState.value}
-          onChange={onPasswordInputChange}
+          onChange={handlePasswordInputChange}
         />
         <span className="form__input-error">{passwordInputState.errorMessage}</span>
       </label>
@@ -103,7 +103,7 @@ function PopupWithSignUpForm({
           maxLength="30"
           required
           value={nameInputState.value}
-          onChange={onNameInputChange}
+          onChange={handleNameInputChange}
         />
         <span className="form__input-error">{nameInputState.errorMessage}</span>
       </label>

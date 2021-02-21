@@ -18,11 +18,11 @@ function NewsCard({
 }) {
   const [isSelected, setIsSelected] = useState(false);
 
-  const bookmarkClickHandler = () => {
+  const handleBookmarkButtonClick = () => {
     setIsSelected(!isSelected);
   };
 
-  const removeClickHandler = () => {
+  const handleRemoveButtonClick = () => {
     onRemoveBookmark(card._id);
   };
 
@@ -32,7 +32,7 @@ function NewsCard({
         <img
           className="news-card__image"
           src={card.image}
-          alt={card.title}
+          alt={`Обложка статьи "${card.title}"`}
         />
 
         {(isFoundNewsCard && !isLoggedIn) && (
@@ -47,7 +47,7 @@ function NewsCard({
           <BookmarkButton
             className="news-card__button"
             isSelected={isSelected}
-            handleClick={bookmarkClickHandler}
+            onClick={handleBookmarkButtonClick}
           />
         )}
 
@@ -61,7 +61,7 @@ function NewsCard({
               tooltipText="Убрать из сохранённых"
               className="news-card__button"
               isSelected={isSelected}
-              handleClick={removeClickHandler}
+              onClick={handleRemoveButtonClick}
             />
           </>
         )}

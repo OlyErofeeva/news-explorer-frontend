@@ -4,14 +4,14 @@ import './ModalWindow.css';
 import CloseButton from '../ui/CloseButton/CloseButton';
 
 function ModalWindow({
-  isOpen = false,
-  onClose,
   title,
   children,
   className = '',
   additionalAction,
+  isOpen = false,
+  onClose,
 }) {
-  const closeOnOverlayClick = (event) => {
+  const handleOverlayClick = (event) => {
     if (event.target.classList.contains('modal_opened')) {
       onClose();
     }
@@ -19,12 +19,12 @@ function ModalWindow({
 
   return (
     // disabled jsx-a11y/no-static-element-interactions for overlay click
-    <div className={`modal ${isOpen ? 'modal_opened' : ''} ${className}`} onMouseDown={closeOnOverlayClick} > {/* eslint-disable-line */}
+    <div className={`modal ${isOpen ? 'modal_opened' : ''} ${className}`} onMouseDown={handleOverlayClick} > {/* eslint-disable-line */}
       <div className="modal__content">
         <CloseButton
           className="modal__close-button"
-          handleClick={onClose}
           isDarkTheme
+          onClick={onClose}
         />
         <h2 className="modal__title">{title}</h2>
         {children}

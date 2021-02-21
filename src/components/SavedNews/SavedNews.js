@@ -7,13 +7,13 @@ import Preloader from '../Preloader/Preloader';
 import NewsCardList from '../NewsCardList/NewsCardList';
 import bookmarksApiResponse from '../../db/bookmarksApiResponse';
 
-function SavedNews({ isLoggedIn, handleLogout }) {
+function SavedNews({ isLoggedIn, onLogout }) {
   const [bookmarks, setBookmarks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
   const getBookmarks = () => bookmarksApiResponse;
 
-  const onRemoveBookmark = (bookmarkId) => {
+  const handleRemoveBookmark = (bookmarkId) => {
     const newBookmarks = bookmarks.filter((item) => item._id !== bookmarkId);
     setBookmarks(newBookmarks);
   };
@@ -31,7 +31,7 @@ function SavedNews({ isLoggedIn, handleLogout }) {
       <Header
         isLoggedIn={isLoggedIn}
         selectedNavLink="bookmarks"
-        handleLogout={handleLogout}
+        onLogout={onLogout}
       />
       <main className="saved-news-wrapper">
         <SavedNewsHeader />
@@ -44,7 +44,7 @@ function SavedNews({ isLoggedIn, handleLogout }) {
                   cards={bookmarks}
                   isLoggedIn
                   isSavedNewsList
-                  onRemoveBookmark={onRemoveBookmark}
+                  onRemoveBookmark={handleRemoveBookmark}
                 />
               )}
           </div>

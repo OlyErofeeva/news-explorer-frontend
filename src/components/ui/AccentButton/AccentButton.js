@@ -6,7 +6,7 @@ function AccentButton({
   isSubmit = true,
   isActive = true,
   className = '',
-  handleClick,
+  onClick,
 }) {
   return (
     <button
@@ -17,7 +17,7 @@ function AccentButton({
       `}
       type={isSubmit ? 'submit' : 'button'}
       disabled={!isActive}
-      onClick={handleClick}
+      onClick={onClick}
     >
       {caption}
     </button>

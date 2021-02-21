@@ -13,12 +13,22 @@ function Header({
   isLoggedIn = false,
   isDarkTheme = false,
   selectedNavLink,
-  openLoginPopup,
-  handleLogout,
+  onOpenLoginPopup,
+  onLogout,
 }) {
   const [isHamburgerMenuShown, setIsHamburgerMenuShown] = useState(false);
 
-  const hamburgerClickHandler = () => {
+  const handleOpenLoginPopup = () => {
+    onOpenLoginPopup();
+    setIsHamburgerMenuShown(false);
+  };
+
+  const handleLogout = () => {
+    onLogout();
+    setIsHamburgerMenuShown(false);
+  };
+
+  const handleHamburgerClick = () => {
     setIsHamburgerMenuShown(!isHamburgerMenuShown);
   };
 
@@ -63,7 +73,7 @@ function Header({
                   caption="Грета"
                   Icon={LogoutIcon}
                   isDarkTheme={isDarkTheme}
-                  handleClick={handleLogout}
+                  onClick={handleLogout}
                 />
               )
               : (
@@ -71,16 +81,16 @@ function Header({
                   className="header__button"
                   caption="Авторизоваться"
                   isDarkTheme={isDarkTheme}
-                  handleClick={openLoginPopup}
+                  onClick={handleOpenLoginPopup}
                 />
               )}
           </div>
 
           <HamburgerMenuButton
             className="header__hamburger-button"
-            handleClick={hamburgerClickHandler}
             isMenuExtended={isHamburgerMenuShown}
             isDarkTheme={isDarkTheme}
+            onClick={handleHamburgerClick}
           />
         </div>
       </header>

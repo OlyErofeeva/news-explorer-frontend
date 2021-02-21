@@ -100,14 +100,14 @@ function App() {
         <Route path="/saved-news">
           <SavedNews
             isLoggedIn={isLoggedIn}
-            handleLogout={handleLogout}
+            onLogout={handleLogout}
           />
         </Route>
         <Route path="/">
           <Main
             isLoggedIn={isLoggedIn}
-            openLoginPopup={openLoginPopup}
-            handleLogout={handleLogout}
+            onOpenLoginPopup={openLoginPopup}
+            onLogout={handleLogout}
             searchNews={searchNews}
           />
         </Route>
@@ -117,21 +117,21 @@ function App() {
       <PopupWithLoginForm
         isOpen={isLoginPopupOpen}
         onClose={closeAllPopups}
-        openSignUpPopup={openSignUpPopup}
-        handleLogin={handleLogin}
+        onLogin={handleLogin}
+        onOpenSignUpPopup={openSignUpPopup}
       />
 
       <PopupWithSignUpForm
         isOpen={isSignUpPopupOpen}
         onClose={closeAllPopups}
-        openLoginPopup={openLoginPopup}
-        openSignUpMessagePopup={openSignUpMessagePopup}
+        onOpenLoginPopup={openLoginPopup}
+        onOpenSignUpMessagePopup={openSignUpMessagePopup}
       />
 
       <PopupSignedUp
         isOpen={isSignUpMessagePopupOpen}
         onClose={closeAllPopups}
-        openPopupWithLogin={openLoginPopup}
+        onOpenLoginPopup={openLoginPopup}
       />
     </div>
   );

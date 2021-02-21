@@ -10,8 +10,8 @@ import { INITIAL_PAGE_SIZE, SHOW_MORE_PAGE_SIZE } from '../../configs';
 
 function Main({
   isLoggedIn,
-  openLoginPopup,
-  handleLogout,
+  onOpenLoginPopup,
+  onLogout,
   searchNews,
 }) {
   const [shownNews, setShownNews] = useState([]);
@@ -50,22 +50,25 @@ function Main({
     <main className="main">
       <div className="main__container-with-background">
         <Header
-          isLoggedIn={isLoggedIn}
           selectedNavLink="home"
+          isLoggedIn={isLoggedIn}
           isDarkTheme
-          openLoginPopup={openLoginPopup}
-          handleLogout={handleLogout}
+          onOpenLoginPopup={onOpenLoginPopup}
+          onLogout={onLogout}
         />
-        <SearchForm className="main__search-form" submitHandler={handleSearchFormSubmit} />
+        <SearchForm
+          className="main__search-form"
+          onSubmit={handleSearchFormSubmit}
+        />
       </div>
       {isSearchStarted && (
         <SearchResult
-          isKeywordEmpty={isKeywordEmpty}
           cards={shownNews}
+          isKeywordEmpty={isKeywordEmpty}
           isLoading={isLoading}
           isLoggedIn={isLoggedIn}
-          handleShowMoreClick={handleShowMoreClick}
           isAllNewsShown={isAllNewsShown}
+          onShowMoreClick={handleShowMoreClick}
         />
       )}
       <About />

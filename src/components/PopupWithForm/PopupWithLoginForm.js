@@ -8,18 +8,18 @@ import useValidatedState from '../../utils/useValidatedState';
 function PopupWithLoginForm({
   isOpen,
   onClose,
-  openSignUpPopup,
-  handleLogin,
+  onLogin,
+  onOpenSignUpPopup,
 }) {
   const {
     inputState: emailInputState,
-    onChange: onEmailInputChange,
+    onChange: handleEmailInputChange,
     reset: resetEmailInput,
   } = useValidatedState('');
 
   const {
     inputState: passwordInputState,
-    onChange: onPasswordInputChange,
+    onChange: handlePasswordInputChange,
     reset: resetPasswordInput,
   } = useValidatedState('');
 
@@ -36,19 +36,19 @@ function PopupWithLoginForm({
 
   return (
     <PopupWithForm
-      isOpen={isOpen}
-      onClose={onClose}
       formTitle="Вход"
       submitButtonCaption="Войти"
-      isSubmitButtonActive={
-        emailInputState.isValid && passwordInputState.isValid
-      }
-      handleSubmit={handleLogin}
       additionalAction={{
         text: 'или',
         buttonCaption: 'Зарегистрироваться',
-        handler: openSignUpPopup,
+        handler: onOpenSignUpPopup,
       }}
+      isOpen={isOpen}
+      isSubmitButtonActive={
+        emailInputState.isValid && passwordInputState.isValid
+      }
+      onSubmit={onLogin}
+      onClose={onClose}
     >
       <label className="form__input-label" htmlFor="login-email">
         Email
@@ -60,7 +60,7 @@ function PopupWithLoginForm({
           placeholder="Введите почту"
           required
           value={emailInputState.value}
-          onChange={onEmailInputChange}
+          onChange={handleEmailInputChange}
         />
         <span className="form__input-error">{emailInputState.errorMessage}</span>
       </label>
@@ -75,7 +75,7 @@ function PopupWithLoginForm({
           placeholder="Введите пароль"
           required
           value={passwordInputState.value}
-          onChange={onPasswordInputChange}
+          onChange={handlePasswordInputChange}
         />
         <span className="form__input-error">{passwordInputState.errorMessage}</span>
       </label>

@@ -6,7 +6,7 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 function PopupSignedUp({
   isOpen,
   onClose,
-  openPopupWithLogin,
+  onOpenLoginPopup,
 }) {
   return (
     <ModalWindow
@@ -18,7 +18,7 @@ function PopupSignedUp({
       <button
         className="popup-signed-up__button"
         type="button"
-        onClick={openPopupWithLogin}
+        onClick={onOpenLoginPopup}
       >
         Войти
       </button>

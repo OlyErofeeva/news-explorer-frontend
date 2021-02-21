@@ -8,13 +8,13 @@ function HamburgerMenuButton({
   className = '',
   isDarkTheme,
   isMenuExtended = false,
-  handleClick,
+  onClick,
 }) {
   return (
     <button
       className={`hamburger-button ${className}`}
       type="button"
-      onClick={handleClick}
+      onClick={onClick}
     >
       {isMenuExtended
         ? <HamburgerMenuCloseIcon isDarkTheme={isDarkTheme} />

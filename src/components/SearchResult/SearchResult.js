@@ -7,12 +7,12 @@ import Preloader from '../Preloader/Preloader';
 import NewsCardList from '../NewsCardList/NewsCardList';
 
 function SearchResult({
-  isKeywordEmpty,
   cards,
+  isKeywordEmpty,
   isLoading,
   isLoggedIn,
-  handleShowMoreClick,
   isAllNewsShown,
+  onShowMoreClick,
 }) {
   return (
     <section className="search-result">
@@ -47,7 +47,7 @@ function SearchResult({
                     <CommonButton
                       caption="Показать ещё"
                       className="search-result__show-more-button"
-                      handleClick={handleShowMoreClick}
+                      onClick={onShowMoreClick}
                     />
                   )}
 
