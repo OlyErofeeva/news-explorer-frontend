@@ -107,6 +107,7 @@ function App() {
           <Main
             isLoggedIn={isLoggedIn}
             onOpenLoginPopup={openLoginPopup}
+            onOpenSignUpPopup={openSignUpPopup}
             onLogout={handleLogout}
             searchNews={searchNews}
           />

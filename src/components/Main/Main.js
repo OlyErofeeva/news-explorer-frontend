@@ -11,6 +11,7 @@ import { INITIAL_PAGE_SIZE, SHOW_MORE_PAGE_SIZE } from '../../configs';
 function Main({
   isLoggedIn,
   onOpenLoginPopup,
+  onOpenSignUpPopup,
   onLogout,
   searchNews,
 }) {
@@ -69,6 +70,7 @@ function Main({
           isLoggedIn={isLoggedIn}
           isAllNewsShown={isAllNewsShown}
           onShowMoreClick={handleShowMoreClick}
+          onOpenSignUpPopup={onOpenSignUpPopup}
         />
       )}
       <About />

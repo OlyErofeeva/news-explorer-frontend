@@ -13,6 +13,7 @@ function SearchResult({
   isLoggedIn,
   isAllNewsShown,
   onShowMoreClick,
+  onOpenSignUpPopup,
 }) {
   return (
     <section className="search-result">
@@ -42,6 +43,7 @@ function SearchResult({
                     cards={cards}
                     isLoggedIn={isLoggedIn}
                     isFoundNewsList
+                    onOpenSignUpPopup={onOpenSignUpPopup}
                   />
                   {!isAllNewsShown && (
                     <CommonButton

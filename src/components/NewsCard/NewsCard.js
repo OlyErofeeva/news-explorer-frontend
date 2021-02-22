@@ -15,6 +15,7 @@ function NewsCard({
   isSavedNewsCard,
   isLoggedIn,
   onRemoveBookmark,
+  onOpenSignUpPopup,
 }) {
   const [isSelected, setIsSelected] = useState(false);
 
@@ -40,6 +41,7 @@ function NewsCard({
             tooltipText="Войдите, чтобы сохранять статьи"
             className="news-card__button"
             isSelected={isSelected}
+            onClick={onOpenSignUpPopup}
           />
         )}
 

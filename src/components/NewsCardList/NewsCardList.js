@@ -9,6 +9,7 @@ function NewsCardList({
   isFoundNewsList,
   isSavedNewsList,
   onRemoveBookmark,
+  onOpenSignUpPopup,
 }) {
   return (
     <ul className="news-card-list">
@@ -20,6 +21,7 @@ function NewsCardList({
             isSavedNewsCard={isSavedNewsList}
             isLoggedIn={isLoggedIn}
             onRemoveBookmark={onRemoveBookmark}
+            onOpenSignUpPopup={onOpenSignUpPopup}
           />
         </li>
       ))}
