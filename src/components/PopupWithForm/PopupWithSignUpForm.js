@@ -8,8 +8,8 @@ import useValidatedState from '../../utils/useValidatedState';
 function PopupWithSignUpForm({
   isOpen,
   onClose,
+  onSignUp,
   onOpenLoginPopup,
-  onOpenSignUpMessagePopup,
 }) {
   const {
     inputState: emailInputState,
@@ -36,7 +36,7 @@ function PopupWithSignUpForm({
   };
 
   const handleSignUp = () => {
-    onOpenSignUpMessagePopup();
+    onSignUp(emailInputState.value, passwordInputState.value, nameInputState.value);
   };
 
   useEffect(() => {

@@ -28,6 +28,10 @@ function PopupWithLoginForm({
     resetPasswordInput('');
   };
 
+  const handleLogin = () => {
+    onLogin(emailInputState.value, passwordInputState.value);
+  };
+
   useEffect(() => {
     if (!isOpen) {
       resetInputs();
@@ -47,7 +51,7 @@ function PopupWithLoginForm({
       isSubmitButtonActive={
         emailInputState.isValid && passwordInputState.isValid
       }
-      onSubmit={onLogin}
+      onSubmit={handleLogin}
       onClose={onClose}
     >
       <label className="form__input-label" htmlFor="login-email">

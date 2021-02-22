@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
+import CurrentUserContext from '../../contexts/CurrentUserContext';
 
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
@@ -10,10 +11,17 @@ import PopupWithSignUpForm from '../PopupWithForm/PopupWithSignUpForm';
 import PopupSignedUp from '../PopupSignedUp/PopupSignedUp';
 
 import newsApi from '../../utils/NewsApi';
+import mainApi from '../../utils/MainApi';
 import { daysToMsec } from '../../utils/dateUtils';
 import { SEARCH_INTERVAL_DAYS } from '../../configs';
 
 function App() {
+  const history = useHistory();
+  const [currentUser, setCurrentUser] = useState({
+    _id: '',
+    email: '',
+    name: '',
+  });
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
@@ -40,15 +48,37 @@ function App() {
     setIsSignUpPopupOpen(true);
   };
 
-  const handleLogin = () => {
-    localStorage.setItem('token', true);
-    setIsLoggedIn(true);
-    closeAllPopups();
+  const handleSignUp = (email, password, name) => {
+    mainApi
+      .signUp(email, password, name)
+      .then(() => {
+        openSignUpMessagePopup();
+      })
+      .catch((err) => console.log(err));
+  };
+
+  const handleLogin = (email, password) => {
+    mainApi
+      .signIn(email, password)
+      .then((response) => {
+        if (response.token) {
+          closeAllPopups();
+          localStorage.setItem('token', response.token);
+          setIsLoggedIn(true);
+        }
+      })
+      .catch((err) => console.log(err));
   };
 
   const handleLogout = () => {
     localStorage.removeItem('token');
     setIsLoggedIn(false);
+    setCurrentUser({
+      _id: '',
+      email: '',
+      name: '',
+    });
+    history.push('/');
   };
 
   const searchNews = (keyword) => {
@@ -80,6 +110,22 @@ function App() {
   };
 
   useEffect(() => {
+    if (isLoggedIn) {
+      const token = localStorage.getItem('token');
+      mainApi
+        .getCurrentUserInfo(token)
+        .then((response) => {
+          setCurrentUser({
+            _id: response._id,
+            email: response.email,
+            name: response.name,
+          });
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
@@ -95,46 +141,48 @@ function App() {
   }, []);
 
   return (
-    <div className="App">
-      <Switch>
-        <Route path="/saved-news">
-          <SavedNews
-            isLoggedIn={isLoggedIn}
-            onLogout={handleLogout}
-          />
-        </Route>
-        <Route path="/">
-          <Main
-            isLoggedIn={isLoggedIn}
-            onOpenLoginPopup={openLoginPopup}
-            onOpenSignUpPopup={openSignUpPopup}
-            onLogout={handleLogout}
-            searchNews={searchNews}
-          />
-        </Route>
-      </Switch>
-      <Footer />
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="App">
+        <Switch>
+          <Route path="/saved-news">
+            <SavedNews
+              isLoggedIn={isLoggedIn}
+              onLogout={handleLogout}
+            />
+          </Route>
+          <Route path="/">
+            <Main
+              isLoggedIn={isLoggedIn}
+              onOpenLoginPopup={openLoginPopup}
+              onOpenSignUpPopup={openSignUpPopup}
+              onLogout={handleLogout}
+              searchNews={searchNews}
+            />
+          </Route>
+        </Switch>
+        <Footer />
 
-      <PopupWithLoginForm
-        isOpen={isLoginPopupOpen}
-        onClose={closeAllPopups}
-        onLogin={handleLogin}
-        onOpenSignUpPopup={openSignUpPopup}
-      />
+        <PopupWithLoginForm
+          isOpen={isLoginPopupOpen}
+          onClose={closeAllPopups}
+          onLogin={handleLogin}
+          onOpenSignUpPopup={openSignUpPopup}
+        />
 
-      <PopupWithSignUpForm
-        isOpen={isSignUpPopupOpen}
-        onClose={closeAllPopups}
-        onOpenLoginPopup={openLoginPopup}
-        onOpenSignUpMessagePopup={openSignUpMessagePopup}
-      />
+        <PopupWithSignUpForm
+          isOpen={isSignUpPopupOpen}
+          onClose={closeAllPopups}
+          onSignUp={handleSignUp}
+          onOpenLoginPopup={openLoginPopup}
+        />
 
-      <PopupSignedUp
-        isOpen={isSignUpMessagePopupOpen}
-        onClose={closeAllPopups}
-        onOpenLoginPopup={openLoginPopup}
-      />
-    </div>
+        <PopupSignedUp
+          isOpen={isSignUpMessagePopupOpen}
+          onClose={closeAllPopups}
+          onOpenLoginPopup={openLoginPopup}
+        />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
