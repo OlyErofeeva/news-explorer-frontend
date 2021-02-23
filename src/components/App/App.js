@@ -72,6 +72,7 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem('token');
+    localStorage.removeItem('cachedNews');
     setIsLoggedIn(false);
     setCurrentUser({
       _id: '',

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Main.css';
 
 import Header from '../Header/Header';
@@ -79,6 +79,21 @@ function Main({
         .catch((err) => console.log(err));
     }
   };
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      setIsSearchStarted(false);
+      setShownNews([]);
+    }
+  }, [isLoggedIn]);
+
+  useEffect(() => {
+    const lastSessionArticles = JSON.parse(localStorage.getItem('cachedNews'));
+    if (lastSessionArticles && lastSessionArticles.length > 0) {
+      setShownNews(lastSessionArticles.slice(0, INITIAL_PAGE_SIZE));
+      setIsSearchStarted(true);
+    }
+  }, []);
 
   return (
     <main className="main">
