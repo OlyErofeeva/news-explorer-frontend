@@ -8,7 +8,8 @@ function NewsCardList({
   isLoggedIn,
   isFoundNewsList,
   isSavedNewsList,
-  onRemoveBookmark,
+  onBookmarkButtonClick,
+  onRemoveButtonClick,
   onOpenSignUpPopup,
 }) {
   return (
@@ -20,7 +21,8 @@ function NewsCardList({
             isFoundNewsCard={isFoundNewsList}
             isSavedNewsCard={isSavedNewsList}
             isLoggedIn={isLoggedIn}
-            onRemoveBookmark={onRemoveBookmark}
+            onBookmarkButtonClick={onBookmarkButtonClick}
+            onRemoveButtonClick={onRemoveButtonClick}
             onOpenSignUpPopup={onOpenSignUpPopup}
           />
         </li>

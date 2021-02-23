@@ -5,25 +5,35 @@ import Header from '../Header/Header';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import Preloader from '../Preloader/Preloader';
 import NewsCardList from '../NewsCardList/NewsCardList';
-import bookmarksApiResponse from '../../db/bookmarksApiResponse';
 
-function SavedNews({ isLoggedIn, onLogout }) {
+function SavedNews({
+  isLoggedIn,
+  onLogout,
+  getSavedNews,
+  onRemoveBookmark,
+}) {
   const [bookmarks, setBookmarks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getBookmarks = () => bookmarksApiResponse;
-
   const handleRemoveBookmark = (bookmarkId) => {
-    const newBookmarks = bookmarks.filter((item) => item._id !== bookmarkId);
-    setBookmarks(newBookmarks);
+    onRemoveBookmark(bookmarkId)
+      .then(() => {
+        const newBookmarks = bookmarks.filter((item) => item._id !== bookmarkId);
+        setBookmarks(newBookmarks);
+      })
+      .catch((err) => console.log(err));
   };
 
   useEffect(() => {
     setIsLoading(true);
-    setBookmarks(getBookmarks());
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    getSavedNews()
+      .then((response) => {
+        setBookmarks(response);
+      })
+      .catch((err) => console.log(err))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -44,7 +54,7 @@ function SavedNews({ isLoggedIn, onLogout }) {
                   cards={bookmarks}
                   isLoggedIn
                   isSavedNewsList
-                  onRemoveBookmark={handleRemoveBookmark}
+                  onRemoveButtonClick={handleRemoveBookmark}
                 />
               )}
           </div>

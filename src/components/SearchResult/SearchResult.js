@@ -13,6 +13,7 @@ function SearchResult({
   isLoggedIn,
   isAllNewsShown,
   onShowMoreClick,
+  onBookmarkButtonClick,
   onOpenSignUpPopup,
 }) {
   return (
@@ -43,6 +44,7 @@ function SearchResult({
                     cards={cards}
                     isLoggedIn={isLoggedIn}
                     isFoundNewsList
+                    onBookmarkButtonClick={onBookmarkButtonClick}
                     onOpenSignUpPopup={onOpenSignUpPopup}
                   />
                   {!isAllNewsShown && (

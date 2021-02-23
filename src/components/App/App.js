@@ -109,6 +109,24 @@ function App() {
       .catch((err) => console.log(err));
   };
 
+  const getSavedNews = () => {
+    const token = localStorage.getItem('token');
+    return mainApi
+      .getBookmarkedArticles(token);
+  };
+
+  const createBookmark = (article) => {
+    const token = localStorage.getItem('token');
+    return mainApi
+      .createArticleBookmark(token, article);
+  };
+
+  const removeBookmark = (articleId) => {
+    const token = localStorage.getItem('token');
+    return mainApi
+      .removeArticleBookmark(token, articleId);
+  };
+
   useEffect(() => {
     if (isLoggedIn) {
       const token = localStorage.getItem('token');
@@ -148,6 +166,8 @@ function App() {
             <SavedNews
               isLoggedIn={isLoggedIn}
               onLogout={handleLogout}
+              getSavedNews={getSavedNews}
+              onRemoveBookmark={removeBookmark}
             />
           </Route>
           <Route path="/">
@@ -157,6 +177,8 @@ function App() {
               onOpenSignUpPopup={openSignUpPopup}
               onLogout={handleLogout}
               searchNews={searchNews}
+              onCreateBookmark={createBookmark}
+              onRemoveBookmark={removeBookmark}
             />
           </Route>
         </Switch>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './NewsCard.css';
 
 import BookmarkButton from '../ui/BookmarkButton/BookmarkButton';
@@ -14,18 +14,27 @@ function NewsCard({
   isFoundNewsCard,
   isSavedNewsCard,
   isLoggedIn,
-  onRemoveBookmark,
+  onBookmarkButtonClick,
+  onRemoveButtonClick,
   onOpenSignUpPopup,
 }) {
   const [isSelected, setIsSelected] = useState(false);
 
   const handleBookmarkButtonClick = () => {
-    setIsSelected(!isSelected);
+    onBookmarkButtonClick(card);
   };
 
   const handleRemoveButtonClick = () => {
-    onRemoveBookmark(card._id);
+    onRemoveButtonClick(card._id);
   };
+
+  useEffect(() => {
+    if (card._id) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+  }, [card._id]);
 
   return (
     <article className="news-card">

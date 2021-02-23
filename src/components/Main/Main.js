@@ -14,6 +14,8 @@ function Main({
   onOpenSignUpPopup,
   onLogout,
   searchNews,
+  onCreateBookmark,
+  onRemoveBookmark,
 }) {
   const [shownNews, setShownNews] = useState([]);
   const [isSearchStarted, setIsSearchStarted] = useState(false);
@@ -47,6 +49,37 @@ function Main({
     setShownNews(cachedArticles.slice(0, shownNews.length + SHOW_MORE_PAGE_SIZE));
   };
 
+  const handleBookmarkButtonClick = (article) => {
+    const cachedArticles = JSON.parse(localStorage.getItem('cachedNews'));
+    if (!article._id) {
+      onCreateBookmark(article)
+        .then((response) => {
+          const updatedCachedArticles = cachedArticles.map((item) => {
+            if (item.link === article.link) {
+              return { ...item, _id: response._id };
+            }
+            return item;
+          });
+          localStorage.setItem('cachedNews', JSON.stringify(updatedCachedArticles));
+          setShownNews(updatedCachedArticles.slice(0, shownNews.length));
+        })
+        .catch((err) => console.log(err));
+    } else {
+      onRemoveBookmark(article._id)
+        .then(() => {
+          const updatedCachedArticles = cachedArticles.map((item) => {
+            if (item.link === article.link) {
+              return { ...item, _id: '' };
+            }
+            return item;
+          });
+          localStorage.setItem('cachedNews', JSON.stringify(updatedCachedArticles));
+          setShownNews(updatedCachedArticles.slice(0, shownNews.length));
+        })
+        .catch((err) => console.log(err));
+    }
+  };
+
   return (
     <main className="main">
       <div className="main__container-with-background">
@@ -71,6 +104,7 @@ function Main({
           isAllNewsShown={isAllNewsShown}
           onShowMoreClick={handleShowMoreClick}
           onOpenSignUpPopup={onOpenSignUpPopup}
+          onBookmarkButtonClick={handleBookmarkButtonClick}
         />
       )}
       <About />
