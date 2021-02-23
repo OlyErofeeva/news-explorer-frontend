@@ -117,6 +117,16 @@
     font-size: 22px;
     line-height: 24px;
   }
+
+  .news-card__keyword {
+    top: 16px;
+    left: 16px;
+  }
+
+  .news-card__button {
+    top: 16px;
+    right: 16px;
+  }
 }
 
 
@@ -132,6 +142,16 @@
   .news-card__source {
     margin-top: 12px;
   }
+
+  .news-card__keyword {
+    top: 8px;
+    left: 8px;
+  }
+
+  .news-card__button {
+    top: 8px;
+    right: 8px;
+  }
 }
 
 
@@ -142,5 +162,15 @@
 
   .news-card__source {
     margin-top: 8px;
+  }
+
+  .news-card__keyword {
+    top: 16px;
+    left: 16px;
+  }
+
+  .news-card__button {
+    top: 16px;
+    right: 16px;
   }
 }
