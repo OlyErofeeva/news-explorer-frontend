@@ -44,7 +44,14 @@
   border-color: #1a1b22;
 }
 
+.secondary-button__caption {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .secondary-button__icon {
+  min-width: 24px;
   margin-left: 8px;
 }
 

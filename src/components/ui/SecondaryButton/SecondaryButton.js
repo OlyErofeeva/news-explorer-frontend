@@ -19,7 +19,7 @@ function SecondaryButton({
       type={isSubmit ? 'submit' : 'button'}
       onClick={onClick}
     >
-      {caption}
+      <span className="secondary-button__caption">{caption}</span>
       { Icon && <Icon className="secondary-button__icon" isDarkTheme={isDarkTheme} />}
     </button>
   );

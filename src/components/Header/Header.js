@@ -51,7 +51,7 @@ function Header({
     <>
       <header className={`header ${resolveHeaderClassName()}`}>
         <div className="header__content">
-          <LetterLogo isDarkTheme={isDarkTheme} />
+          <LetterLogo isDarkTheme={isDarkTheme} className="header__logo" />
 
           <div
             className={`
