@@ -6,6 +6,7 @@ import BookmarkButtonWithTooltip from '../ui/BookmarkButton/BookmarkButtonWithTo
 import RemoveButtonWithTooltip from '../ui/RemoveButton/RemoveButtonWithTooltip';
 import KeywordTag from '../ui/KeywordTag/KeywordTag';
 
+import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter';
 import truncateWithEllipsis from '../../utils/truncateWithEllipsis';
 import { dateToDisplay } from '../../utils/dateUtils';
 
@@ -65,7 +66,7 @@ function NewsCard({
         {isSavedNewsCard && (
           <>
             <KeywordTag
-              caption={card.keyword}
+              caption={capitalizeFirstLetter(card.keyword)}
               className="news-card__keyword"
             />
             <RemoveButtonWithTooltip
