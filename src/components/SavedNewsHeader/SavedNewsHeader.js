@@ -3,10 +3,13 @@ import './SavedNewsHeader.css';
 
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 import aggregate from '../../utils/aggregate';
+import { getKeywordsNumeralEnding, getSavedArticleSuffix } from '../../utils/wordInflectionUtils';
+import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter';
 
 function SavedNewsHeader({ bookmarks }) {
   const currentUser = useContext(CurrentUserContext);
-  const renderSavedArticlesNumber = () => {
+
+  const getSavedArticlesNumber = () => {
     if (bookmarks && bookmarks.length > 0) {
       return bookmarks.length;
     }
@@ -14,7 +17,7 @@ function SavedNewsHeader({ bookmarks }) {
   };
 
   const renderKeywordInfo = () => {
-    const keywords = bookmarks.map((bookmark) => bookmark.keyword);
+    const keywords = bookmarks.map((bookmark) => capitalizeFirstLetter(bookmark.keyword));
     const sortedKeywords = aggregate(keywords);
 
     switch (true) {
@@ -57,7 +60,7 @@ function SavedNewsHeader({ bookmarks }) {
             <span className="saved-news-header__keywords_accent">{sortedKeywords[1].key}</span>
             {' и '}
             <span className="saved-news-header__keywords_accent">
-              {`${sortedKeywords.length - 2} другим`}
+              {`${sortedKeywords.length - 2}${getKeywordsNumeralEnding(sortedKeywords.length - 2)} другим`}
             </span>
           </p>
         );
@@ -71,9 +74,9 @@ function SavedNewsHeader({ bookmarks }) {
       <div className="saved-news-header__content">
         <h1 className="saved-news-header__title">Сохранённые статьи</h1>
         <h2 className="saved-news-header__subtitle">
-          {`${currentUser.name}, у вас ${renderSavedArticlesNumber()}`}
+          {`${currentUser.name}, у вас ${getSavedArticlesNumber()}`}
           <br />
-          сохранённых статей
+          {getSavedArticleSuffix(bookmarks.length)}
         </h2>
         {(bookmarks && bookmarks.length > 0) && renderKeywordInfo()}
       </div>
