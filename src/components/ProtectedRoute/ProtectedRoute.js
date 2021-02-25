@@ -9,11 +9,18 @@ function ProtectedRoute({
   return (
     <Route path={path} exact={exact}>
       {() => {
-        if (props.isLoggedIn) {
+        if (localStorage.getItem('token')) {
           // eslint-disable-next-line react/jsx-props-no-spreading
           return (<Component {...props} />);
         }
-        return (<Redirect to="/" />);
+        return (
+          <Redirect
+            to={{
+              pathname: '/',
+              state: { noAuthRedirect: true },
+            }}
+          />
+        );
       }}
     </Route>
   );

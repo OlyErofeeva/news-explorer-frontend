@@ -141,6 +141,7 @@ function App() {
             name: response.name,
           });
         })
+        // TODO catch: logged in false & remove token
         .catch((err) => console.log(err));
     }
   }, [isLoggedIn]);
@@ -149,6 +150,11 @@ function App() {
     const token = localStorage.getItem('token');
     if (token) {
       setIsLoggedIn(true);
+    }
+
+    if (history.location.state && history.location.state.noAuthRedirect) {
+      openLoginPopup();
+      history.replace('/');
     }
 
     const closePopupOnEsc = (event) => {
