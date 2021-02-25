@@ -44,7 +44,7 @@ function SavedNews({
         onLogout={onLogout}
       />
       <main className="saved-news-wrapper">
-        <SavedNewsHeader />
+        <SavedNewsHeader bookmarks={bookmarks} />
         <section className="saved-news">
           <div className="saved-news__content">
             {isLoading
