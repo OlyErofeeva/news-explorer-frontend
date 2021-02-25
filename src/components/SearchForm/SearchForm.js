@@ -3,7 +3,7 @@ import './SearchForm.css';
 
 import AccentButton from '../ui/AccentButton/AccentButton';
 
-function SearchForm({ className, onSubmit }) {
+function SearchForm({ isLoading, className, onSubmit }) {
   const [keyword, setKeyword] = useState('');
 
   const handleKeywordInputChange = (event) => {
@@ -38,10 +38,12 @@ function SearchForm({ className, onSubmit }) {
           placeholder="Введите тему новости"
           type="text"
           required
+          disabled={isLoading}
           value={keyword}
           onChange={handleKeywordInputChange}
         />
         <AccentButton
+          disabled={isLoading}
           caption="Искать"
           className="search-form__submit-button"
         />

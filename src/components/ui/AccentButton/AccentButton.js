@@ -4,19 +4,15 @@ import './AccentButton.css';
 function AccentButton({
   caption,
   isSubmit = true,
-  isActive = true,
+  disabled = false,
   className = '',
   onClick,
 }) {
   return (
     <button
-      className={`
-        accent-button
-        ${isActive ? 'accent-button_state_active' : 'accent-button_state_inactive'}
-        ${className}
-      `}
+      className={`accent-button ${className}`}
       type={isSubmit ? 'submit' : 'button'}
-      disabled={!isActive}
+      disabled={disabled}
       onClick={onClick}
     >
       {caption}

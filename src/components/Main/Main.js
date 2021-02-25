@@ -106,6 +106,7 @@ function Main({
           onLogout={onLogout}
         />
         <SearchForm
+          isLoading={isLoading}
           className="main__search-form"
           onSubmit={handleSearchFormSubmit}
         />

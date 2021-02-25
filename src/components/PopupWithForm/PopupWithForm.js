@@ -38,7 +38,7 @@ function PopupWithForm({
         <AccentButton
           caption={submitButtonCaption}
           isSubmit
-          isActive={isSubmitButtonActive}
+          disabled={!isSubmitButtonActive}
           className="form__submit-button"
         />
       </form>

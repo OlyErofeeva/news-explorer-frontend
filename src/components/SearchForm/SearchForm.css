@@ -45,6 +45,10 @@
     appearance: none;
 }
 
+.search-form__input:disabled {
+  background-color: #d1d2d6;
+}
+
 .search-form__input::placeholder {
   color: #b6bcbf;
 }

@@ -49,27 +49,19 @@ function App() {
     setIsSignUpPopupOpen(true);
   };
 
-  const handleSignUp = (email, password, name) => {
-    mainApi
-      .signUp(email, password, name)
-      .then(() => {
-        openSignUpMessagePopup();
-      })
-      .catch((err) => console.log(err));
-  };
+  const handleSignUp = (email, password, name) => mainApi.signUp(email, password, name)
+    .then(() => {
+      openSignUpMessagePopup();
+    });
 
-  const handleLogin = (email, password) => {
-    mainApi
-      .signIn(email, password)
-      .then((response) => {
-        if (response.token) {
-          closeAllPopups();
-          localStorage.setItem('token', response.token);
-          setIsLoggedIn(true);
-        }
-      })
-      .catch((err) => console.log(err));
-  };
+  const handleLogin = (email, password) => mainApi.signIn(email, password)
+    .then((response) => {
+      if (response.token) {
+        closeAllPopups();
+        localStorage.setItem('token', response.token);
+        setIsLoggedIn(true);
+      }
+    });
 
   const handleLogout = () => {
     localStorage.removeItem('token');
@@ -97,10 +89,10 @@ function App() {
       .then((response) => {
         const articles = response.articles.map((article) => ({
           keyword,
-          title: article.title,
-          text: article.description,
+          title: article.title ?? '',
+          text: article.description ?? '',
           date: article.publishedAt,
-          source: article.source.name,
+          source: article.source.name ?? '',
           link: article.url,
           image: article.urlToImage,
         }));

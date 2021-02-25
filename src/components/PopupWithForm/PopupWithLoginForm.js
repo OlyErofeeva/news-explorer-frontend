@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './PopupWithForm.css';
 
 import PopupWithForm from './PopupWithForm';
@@ -11,6 +11,8 @@ function PopupWithLoginForm({
   onLogin,
   onOpenSignUpPopup,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+
   const {
     inputState: emailInputState,
     onChange: handleEmailInputChange,
@@ -29,7 +31,10 @@ function PopupWithLoginForm({
   };
 
   const handleLogin = () => {
-    onLogin(emailInputState.value, passwordInputState.value);
+    setIsLoading(true);
+    onLogin(emailInputState.value, passwordInputState.value)
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
@@ -49,7 +54,7 @@ function PopupWithLoginForm({
       }}
       isOpen={isOpen}
       isSubmitButtonActive={
-        emailInputState.isValid && passwordInputState.isValid
+        !isLoading && emailInputState.isValid && passwordInputState.isValid
       }
       onSubmit={handleLogin}
       onClose={onClose}
@@ -63,6 +68,7 @@ function PopupWithLoginForm({
           name="email"
           placeholder="Введите почту"
           required
+          disabled={isLoading}
           value={emailInputState.value}
           onChange={handleEmailInputChange}
         />
@@ -78,6 +84,7 @@ function PopupWithLoginForm({
           name="password"
           placeholder="Введите пароль"
           required
+          disabled={isLoading}
           value={passwordInputState.value}
           onChange={handlePasswordInputChange}
         />
