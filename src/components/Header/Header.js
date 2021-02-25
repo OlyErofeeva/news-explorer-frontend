@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './Header.css';
 
-import LetterLogo from '../ui/LetterLogo/LetterLogo';
 import Navigation from '../Navigation/Navigation';
+import LetterLogo from '../ui/LetterLogo/LetterLogo';
 import SecondaryButton from '../ui/SecondaryButton/SecondaryButton';
-import { navigationLinks, authNavigationLinks } from '../../configs/links';
 import LogoutIcon from '../svg/LogoutIcon/LogoutIcon';
 import HamburgerMenuButton from '../ui/HamburgerMenuButton/HamburgerMenuButton';
 import Overlay from '../ui/Overlay/Overlay';
+
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { navigationLinks, authNavigationLinks } from '../../configs/links';
 
 function Header({
   isLoggedIn = false,
@@ -16,6 +18,7 @@ function Header({
   onOpenLoginPopup,
   onLogout,
 }) {
+  const currentUser = useContext(CurrentUserContext);
   const [isHamburgerMenuShown, setIsHamburgerMenuShown] = useState(false);
 
   const handleOpenLoginPopup = () => {
@@ -70,7 +73,7 @@ function Header({
               ? (
                 <SecondaryButton
                   className="header__button"
-                  caption="Грета"
+                  caption={currentUser.name}
                   Icon={LogoutIcon}
                   isDarkTheme={isDarkTheme}
                   onClick={handleLogout}
