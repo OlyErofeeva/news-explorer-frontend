@@ -3,6 +3,7 @@ import { Route, Switch, useHistory } from 'react-router-dom';
 import './App.css';
 import CurrentUserContext from '../../contexts/CurrentUserContext';
 
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 import Main from '../Main/Main';
 import SavedNews from '../SavedNews/SavedNews';
 import Footer from '../Footer/Footer';
@@ -163,14 +164,15 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className="App">
         <Switch>
-          <Route path="/saved-news">
-            <SavedNews
-              isLoggedIn={isLoggedIn}
-              onLogout={handleLogout}
-              getSavedNews={getSavedNews}
-              onRemoveBookmark={removeBookmark}
-            />
-          </Route>
+          <ProtectedRoute
+            exact
+            path="/saved-news"
+            component={SavedNews}
+            isLoggedIn={isLoggedIn}
+            onLogout={handleLogout}
+            getSavedNews={getSavedNews}
+            onRemoveBookmark={removeBookmark}
+          />
           <Route path="/">
             <Main
               isLoggedIn={isLoggedIn}
