@@ -14,7 +14,11 @@ import PopupSignedUp from '../PopupSignedUp/PopupSignedUp';
 import newsApi from '../../utils/NewsApi';
 import mainApi from '../../utils/MainApi';
 import { daysToMsec } from '../../utils/dateUtils';
-import { SEARCH_INTERVAL_DAYS } from '../../configs';
+import {
+  APPLICATION_BASE_URL,
+  ARTICLE_IMG_MOCK_PATH,
+  SEARCH_INTERVAL_DAYS,
+} from '../../configs';
 
 function App() {
   const history = useHistory();
@@ -94,7 +98,7 @@ function App() {
           date: article.publishedAt,
           source: article.source.name ?? '',
           link: article.url,
-          image: article.urlToImage,
+          image: article.urlToImage ?? `https://${APPLICATION_BASE_URL}${ARTICLE_IMG_MOCK_PATH}`,
         }));
 
         localStorage.setItem('cachedNews', JSON.stringify(articles));

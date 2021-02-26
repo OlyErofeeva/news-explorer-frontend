@@ -1,8 +1,12 @@
+const APPLICATION_BASE_URL = 'oly-news.students.nomoredomains.icu';
+const ARTICLE_IMG_MOCK_PATH = '/article-img-mock.jpg';
 const SEARCH_INTERVAL_DAYS = 7;
 const INITIAL_PAGE_SIZE = 3;
 const SHOW_MORE_PAGE_SIZE = 3;
 
 export {
+  APPLICATION_BASE_URL,
+  ARTICLE_IMG_MOCK_PATH,
   SEARCH_INTERVAL_DAYS,
   INITIAL_PAGE_SIZE,
   SHOW_MORE_PAGE_SIZE,
