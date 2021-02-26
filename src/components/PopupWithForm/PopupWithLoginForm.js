@@ -12,6 +12,7 @@ function PopupWithLoginForm({
   onOpenSignUpPopup,
 }) {
   const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState('');
 
   const {
     inputState: emailInputState,
@@ -32,14 +33,16 @@ function PopupWithLoginForm({
 
   const handleLogin = () => {
     setIsLoading(true);
+    setServerError('');
     onLogin(emailInputState.value, passwordInputState.value)
-      .catch((err) => console.log(err))
+      .catch((err) => setServerError(err.message))
       .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
     if (!isOpen) {
       resetInputs();
+      setServerError('');
     }
   }, [isOpen]);
 
@@ -47,6 +50,7 @@ function PopupWithLoginForm({
     <PopupWithForm
       formTitle="Вход"
       submitButtonCaption="Войти"
+      serverError={serverError}
       additionalAction={{
         text: 'или',
         buttonCaption: 'Зарегистрироваться',

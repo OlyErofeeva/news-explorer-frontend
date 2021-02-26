@@ -7,7 +7,7 @@ import AccentButton from '../ui/AccentButton/AccentButton';
 function PopupWithForm({
   formTitle = '',
   submitButtonCaption = '',
-  serverError = 'Тест: Ошибка на сервере',
+  serverError = '',
   children,
   additionalAction,
   isOpen,

@@ -5,7 +5,7 @@ const handleResponse = (res) => {
 
   const { status, statusText } = res;
   return res.json()
-    .then((info) => Promise.reject(new Error(`Что-то пошло не так: ${info.message} (${status} ${statusText})`)));
+    .then((info) => Promise.reject(new Error(`${info.message} (${status} ${statusText})`)));
 };
 
 class MainApi {
