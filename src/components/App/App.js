@@ -103,8 +103,7 @@ function App() {
 
         localStorage.setItem('cachedNews', JSON.stringify(articles));
         return articles;
-      })
-      .catch((err) => console.log(err));
+      });
   };
 
   const getSavedNews = () => {

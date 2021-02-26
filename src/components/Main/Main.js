@@ -21,11 +21,13 @@ function Main({
   const [isSearchStarted, setIsSearchStarted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isKeywordEmpty, setIsKeyWordEmpty] = useState(true);
+  const [isSearchFailed, setIsSearchFailed] = useState(false);
 
   const isAllNewsShown = localStorage.getItem('cachedNews') && (shownNews.length === JSON.parse(localStorage.getItem('cachedNews')).length);
 
   const handleSearchFormSubmit = (keyword) => {
     setIsSearchStarted(true);
+    setIsSearchFailed(false);
     setShownNews([]);
 
     if (keyword === '') {
@@ -37,7 +39,9 @@ function Main({
         .then((articles) => {
           setShownNews(articles.slice(0, INITIAL_PAGE_SIZE));
         })
-        .catch((err) => console.log(err))
+        .catch(() => {
+          setIsSearchFailed(true);
+        })
         .finally(() => {
           setIsLoading(false);
         });
@@ -115,6 +119,7 @@ function Main({
         <SearchResult
           cards={shownNews}
           isKeywordEmpty={isKeywordEmpty}
+          isSearchFailed={isSearchFailed}
           isLoading={isLoading}
           isLoggedIn={isLoggedIn}
           isAllNewsShown={isAllNewsShown}

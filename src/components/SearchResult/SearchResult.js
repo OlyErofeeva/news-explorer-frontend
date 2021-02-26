@@ -10,55 +10,72 @@ function SearchResult({
   cards,
   isKeywordEmpty,
   isLoading,
+  isSearchFailed,
   isLoggedIn,
   isAllNewsShown,
   onShowMoreClick,
   onBookmarkButtonClick,
   onOpenSignUpPopup,
 }) {
+  const renderSearchResult = () => {
+    if (isLoading) {
+      return (<Preloader message="Идет поиск новостей..." />);
+    }
+
+    switch (true) {
+      case (isSearchFailed):
+        return (
+          <SearchError
+            errTitle="Во время запроса произошла ошибка"
+            errDescription="Возможно, проблема с соединением или сервер недоступен. Подождите немного и попробуйте ещё раз"
+          />
+        );
+
+      case (isKeywordEmpty && cards.length === 0):
+        return (
+          <SearchError
+            errTitle="Задан пустой поисковой запрос"
+            errDescription="Нужно ввести ключевое слово"
+          />
+        );
+
+      case (!isKeywordEmpty && cards.length === 0):
+        return (
+          <SearchError
+            errTitle="Ничего не найдено"
+            errDescription="К сожалению по вашему запросу ничего не найдено"
+          />
+        );
+
+      case (cards.length > 0):
+        return (
+          <>
+            <h2 className="search-result__title">Результаты поиска</h2>
+            <NewsCardList
+              cards={cards}
+              isLoggedIn={isLoggedIn}
+              isFoundNewsList
+              onBookmarkButtonClick={onBookmarkButtonClick}
+              onOpenSignUpPopup={onOpenSignUpPopup}
+            />
+            {!isAllNewsShown && (
+              <CommonButton
+                caption="Показать ещё"
+                className="search-result__show-more-button"
+                onClick={onShowMoreClick}
+              />
+            )}
+          </>
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <section className="search-result">
       <div className="search-result__content">
-        {isLoading
-          ? (<Preloader message="Идет поиск новостей..." />)
-          : (
-            <>
-              {((cards.length === 0) && isKeywordEmpty) && (
-                <SearchError
-                  errTitle="Задан пустой поисковой запрос"
-                  errDescription="Нужно ввести ключевое слово"
-                />
-              )}
-
-              {((cards.length === 0) && !isKeywordEmpty) && (
-                <SearchError
-                  errTitle="Ничего не найдено"
-                  errDescription="К сожалению по вашему запросу ничего не найдено"
-                />
-              )}
-
-              {(cards.length > 0) && (
-                <>
-                  <h2 className="search-result__title">Результаты поиска</h2>
-                  <NewsCardList
-                    cards={cards}
-                    isLoggedIn={isLoggedIn}
-                    isFoundNewsList
-                    onBookmarkButtonClick={onBookmarkButtonClick}
-                    onOpenSignUpPopup={onOpenSignUpPopup}
-                  />
-                  {!isAllNewsShown && (
-                    <CommonButton
-                      caption="Показать ещё"
-                      className="search-result__show-more-button"
-                      onClick={onShowMoreClick}
-                    />
-                  )}
-
-                </>
-              )}
-            </>
-          )}
+        {renderSearchResult()}
       </div>
     </section>
   );
