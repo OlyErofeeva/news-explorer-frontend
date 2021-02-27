@@ -6,6 +6,7 @@ import BookmarkButtonWithTooltip from '../ui/BookmarkButton/BookmarkButtonWithTo
 import RemoveButtonWithTooltip from '../ui/RemoveButton/RemoveButtonWithTooltip';
 import KeywordTag from '../ui/KeywordTag/KeywordTag';
 
+import { MAX_CARD_TITLE_LENGTH, MAX_CARD_TEXT_LENGTH } from '../../configs';
 import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter';
 import truncateWithEllipsis from '../../utils/truncateWithEllipsis';
 import { dateToDisplay } from '../../utils/dateUtils';
@@ -85,8 +86,8 @@ function NewsCard({
         rel="noreferrer"
       >
         <p className="news-card__timestamp">{dateToDisplay(card.date)}</p>
-        <h3 className="news-card__title">{truncateWithEllipsis(card.title, 60)}</h3>
-        <p className="news-card__text">{truncateWithEllipsis(card.text, 190)}</p>
+        <h3 className="news-card__title">{truncateWithEllipsis(card.title, MAX_CARD_TITLE_LENGTH)}</h3>
+        <p className="news-card__text">{truncateWithEllipsis(card.text, MAX_CARD_TEXT_LENGTH)}</p>
         <p className="news-card__source">{card.source}</p>
       </a>
     </article>
