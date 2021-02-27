@@ -1,18 +1,32 @@
 # News Explorer
 
+### Фронтенд приложения для поиска новостей и сохранения статей в личном кабинете.
+
 https://oly-news.students.nomoredomains.icu/
 
-Приложение для поиска новостей и сохранения статей в личном кабинете.
+Powered by News API: https://newsapi.org/
+
+### REST API:
+
+* https://api.oly-news.students.nomoredomains.icu
+* репозиторий: https://github.com/OlyErofeeva/news-explorer-api
+
+## Используемый стек:
+
+* React JS (functional components)
+* CSS
+* БЭМ
+* Webpack
 
 ## Команды, которые можно запустить, находясь в директории проекта:
 
 ### `npm run dev`
 
-Запускает приложение в режиме разработки
+:gear: Запускает приложение в режиме разработки
 
 ### `npm run start`
 
-Собирает продакшен-версию в папку `build`
+:toolbox: Собирает продакшен-версию в папку `build`
 
 
 ## Планы по доработке проекта:
