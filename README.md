@@ -1,70 +1,34 @@
-# Getting Started with Create React App
+# News Explorer
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+https://oly-news.students.nomoredomains.icu/
 
-## Available Scripts
+Приложение для поиска новостей и сохранения статей в личном кабинете.
 
-In the project directory, you can run:
+## Команды, которые можно запустить, находясь в директории проекта:
 
-### `npm start`
+### `npm run dev`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Запускает приложение в режиме разработки
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### `npm run start`
 
-### `npm test`
+Собирает продакшен-версию в папку `build`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
-### `npm run build`
+## Планы по доработке проекта:
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+* Удалять дублирующиеся статьи из ответа News API
+* Доработать функцию сокращения заголовков и текста в карточках: 
+* * сделать разные значения допустимой длины строки в зависимости от ширины вьюпорта
+* * сокращать текст до ближайшего пробела (если он есть)
+* Рендерить по 4 карточки на разрешениях, где сетка перестраивается в 2 колонки. По кнопке "Показать еще" дорисовывать еще по 4.
+* Использовать хуки useCallback и useReducer, где необходимо
+* Сделать плавные анимации отрисовки появления карточек, мобильного хедера и т.д.
+* Заменить текст ошибки "Failed to fetch" на более подходящий
+* Доработать кейс, когда после удаления карточки со страницы Сохраненных статей она все еще отмечена закладкой на главной странице
+* Прописать PropTypes и убрать исключение для линтера
+* Переписать css классы с использованием библиотеки classnames
+* Вынести в микс стили для типографики и, возможно, отступы секций
+* Добавить запрос на подтверждение выхода из приложения и удаления сохраненных новостей
+* Для keyword-ов из 2 и более слов есть смысл писать с заглавной каждое слово (Elon Musk вместо Elon musk)
+* Для авторизации вместо localStorage использовать cookies
