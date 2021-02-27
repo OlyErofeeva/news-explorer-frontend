@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './NewsCard.css';
 
 import BookmarkButton from '../ui/BookmarkButton/BookmarkButton';
@@ -30,15 +30,7 @@ function NewsCard({
     onRemoveButtonClick(card._id);
   };
 
-  useEffect(() => {
-    if (card._id) {
-      setIsSelected(true);
-    } else {
-      setIsSelected(false);
-    }
-  }, [card._id]);
-
-  return (
+  const currentCard = useMemo(() => (
     <article className="news-card">
       <div className="news-card__image-wrapper">
         <img
@@ -91,7 +83,17 @@ function NewsCard({
         <p className="news-card__source">{card.source}</p>
       </a>
     </article>
-  );
+  ), [isSelected, card._id]);
+
+  useEffect(() => {
+    if (card._id) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+  }, [card._id]);
+
+  return currentCard;
 }
 
 export default NewsCard;
