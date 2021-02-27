@@ -6,7 +6,7 @@ function CommonButton({
   isSubmit = false,
   isActive = true,
   className = '',
-  handleClick,
+  onClick,
 }) {
   return (
     <button
@@ -17,7 +17,7 @@ function CommonButton({
       `}
       type={isSubmit ? 'submit' : 'button'}
       disabled={!isActive}
-      onClick={handleClick}
+      onClick={onClick}
     >
       {caption}
     </button>

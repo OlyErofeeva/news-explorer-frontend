@@ -1,24 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import './Header.css';
 
-import LetterLogo from '../ui/LetterLogo/LetterLogo';
 import Navigation from '../Navigation/Navigation';
+import LetterLogo from '../ui/LetterLogo/LetterLogo';
 import SecondaryButton from '../ui/SecondaryButton/SecondaryButton';
-import { navigationLinks, authNavigationLinks } from '../../configs/links';
 import LogoutIcon from '../svg/LogoutIcon/LogoutIcon';
 import HamburgerMenuButton from '../ui/HamburgerMenuButton/HamburgerMenuButton';
 import Overlay from '../ui/Overlay/Overlay';
+
+import CurrentUserContext from '../../contexts/CurrentUserContext';
+import { navigationLinks, authNavigationLinks } from '../../configs/links';
 
 function Header({
   isLoggedIn = false,
   isDarkTheme = false,
   selectedNavLink,
-  openLoginPopup,
-  handleLogout,
+  onOpenLoginPopup,
+  onLogout,
 }) {
+  const currentUser = useContext(CurrentUserContext);
   const [isHamburgerMenuShown, setIsHamburgerMenuShown] = useState(false);
 
-  const hamburgerClickHandler = () => {
+  const handleOpenLoginPopup = () => {
+    onOpenLoginPopup();
+    setIsHamburgerMenuShown(false);
+  };
+
+  const handleLogout = () => {
+    onLogout();
+    setIsHamburgerMenuShown(false);
+  };
+
+  const handleHamburgerClick = () => {
     setIsHamburgerMenuShown(!isHamburgerMenuShown);
   };
 
@@ -41,7 +54,7 @@ function Header({
     <>
       <header className={`header ${resolveHeaderClassName()}`}>
         <div className="header__content">
-          <LetterLogo isDarkTheme={isDarkTheme} />
+          <LetterLogo isDarkTheme={isDarkTheme} className="header__logo" />
 
           <div
             className={`
@@ -60,10 +73,10 @@ function Header({
               ? (
                 <SecondaryButton
                   className="header__button"
-                  caption="Грета"
+                  caption={currentUser.name}
                   Icon={LogoutIcon}
                   isDarkTheme={isDarkTheme}
-                  handleClick={handleLogout}
+                  onClick={handleLogout}
                 />
               )
               : (
@@ -71,16 +84,16 @@ function Header({
                   className="header__button"
                   caption="Авторизоваться"
                   isDarkTheme={isDarkTheme}
-                  handleClick={openLoginPopup}
+                  onClick={handleOpenLoginPopup}
                 />
               )}
           </div>
 
           <HamburgerMenuButton
             className="header__hamburger-button"
-            handleClick={hamburgerClickHandler}
             isMenuExtended={isHamburgerMenuShown}
             isDarkTheme={isDarkTheme}
+            onClick={handleHamburgerClick}
           />
         </div>
       </header>

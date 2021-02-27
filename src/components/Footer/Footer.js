@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './Footer.css';
 
 import {
@@ -20,13 +21,12 @@ function Footer() {
             <ul className="footer__letter-links">
               {navigationLinks.map((item) => (
                 <li key={item.text}>
-                  <a
+                  <Link
+                    to={item.link}
                     className="footer__letter-link"
-                    href={item.link}
-                    target="_self"
                   >
                     {item.text}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>

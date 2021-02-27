@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import './NewsCard.css';
 
 import BookmarkButton from '../ui/BookmarkButton/BookmarkButton';
@@ -6,35 +6,37 @@ import BookmarkButtonWithTooltip from '../ui/BookmarkButton/BookmarkButtonWithTo
 import RemoveButtonWithTooltip from '../ui/RemoveButton/RemoveButtonWithTooltip';
 import KeywordTag from '../ui/KeywordTag/KeywordTag';
 
+import { MAX_CARD_TITLE_LENGTH, MAX_CARD_TEXT_LENGTH } from '../../configs';
+import capitalizeFirstLetter from '../../utils/capitalizeFirstLetter';
 import truncateWithEllipsis from '../../utils/truncateWithEllipsis';
-
-// next stage TODO: format timestamp & replace the mockup
-// magic string lengths -> constants
+import { dateToDisplay } from '../../utils/dateUtils';
 
 function NewsCard({
   card,
   isFoundNewsCard,
   isSavedNewsCard,
   isLoggedIn,
-  onRemoveBookmark,
+  onBookmarkButtonClick,
+  onRemoveButtonClick,
+  onOpenSignUpPopup,
 }) {
   const [isSelected, setIsSelected] = useState(false);
 
-  const bookmarkClickHandler = () => {
-    setIsSelected(!isSelected);
+  const handleBookmarkButtonClick = () => {
+    onBookmarkButtonClick(card);
   };
 
-  const removeClickHandler = () => {
-    onRemoveBookmark(card._id);
+  const handleRemoveButtonClick = () => {
+    onRemoveButtonClick(card._id);
   };
 
-  return (
+  const currentCard = useMemo(() => (
     <article className="news-card">
       <div className="news-card__image-wrapper">
         <img
           className="news-card__image"
           src={card.image}
-          alt={card.title}
+          alt={`Обложка статьи "${card.title}"`}
         />
 
         {(isFoundNewsCard && !isLoggedIn) && (
@@ -42,6 +44,7 @@ function NewsCard({
             tooltipText="Войдите, чтобы сохранять статьи"
             className="news-card__button"
             isSelected={isSelected}
+            onClick={onOpenSignUpPopup}
           />
         )}
 
@@ -49,21 +52,21 @@ function NewsCard({
           <BookmarkButton
             className="news-card__button"
             isSelected={isSelected}
-            handleClick={bookmarkClickHandler}
+            onClick={handleBookmarkButtonClick}
           />
         )}
 
         {isSavedNewsCard && (
           <>
             <KeywordTag
-              caption={card.keyword}
+              caption={capitalizeFirstLetter(card.keyword)}
               className="news-card__keyword"
             />
             <RemoveButtonWithTooltip
               tooltipText="Убрать из сохранённых"
               className="news-card__button"
               isSelected={isSelected}
-              handleClick={removeClickHandler}
+              onClick={handleRemoveButtonClick}
             />
           </>
         )}
@@ -74,13 +77,23 @@ function NewsCard({
         target="_blank"
         rel="noreferrer"
       >
-        <p className="news-card__timestamp">2 августа, 2019</p>
-        <h3 className="news-card__title">{truncateWithEllipsis(card.title, 60)}</h3>
-        <p className="news-card__text">{truncateWithEllipsis(card.text, 190)}</p>
+        <p className="news-card__timestamp">{dateToDisplay(card.date)}</p>
+        <h3 className="news-card__title">{truncateWithEllipsis(card.title, MAX_CARD_TITLE_LENGTH)}</h3>
+        <p className="news-card__text">{truncateWithEllipsis(card.text, MAX_CARD_TEXT_LENGTH)}</p>
         <p className="news-card__source">{card.source}</p>
       </a>
     </article>
-  );
+  ), [isSelected, card._id]);
+
+  useEffect(() => {
+    if (card._id) {
+      setIsSelected(true);
+    } else {
+      setIsSelected(false);
+    }
+  }, [card._id]);
+
+  return currentCard;
 }
 
 export default NewsCard;

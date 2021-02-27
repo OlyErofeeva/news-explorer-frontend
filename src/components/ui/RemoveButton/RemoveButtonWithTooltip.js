@@ -7,7 +7,7 @@ import ButtonTooltip from '../ButtonTooltip/ButtonTooltip';
 function RemoveButtonWithTooltip({
   tooltipText,
   className = '',
-  handleClick,
+  onClick,
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -31,7 +31,7 @@ function RemoveButtonWithTooltip({
         type="button"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
+        onClick={onClick}
       >
         <RemoveIcon isHovered={isHovered} />
       </button>

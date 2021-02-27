@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './PopupWithForm.css';
 
 import PopupWithForm from './PopupWithForm';
@@ -8,24 +8,27 @@ import useValidatedState from '../../utils/useValidatedState';
 function PopupWithSignUpForm({
   isOpen,
   onClose,
-  openLoginPopup,
-  openSignUpMessagePopup,
+  onSignUp,
+  onOpenLoginPopup,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState('');
+
   const {
     inputState: emailInputState,
-    onChange: onEmailInputChange,
+    onChange: handleEmailInputChange,
     reset: resetEmailInput,
   } = useValidatedState('');
 
   const {
     inputState: passwordInputState,
-    onChange: onPasswordInputChange,
+    onChange: handlePasswordInputChange,
     reset: resetPasswordInput,
   } = useValidatedState('');
 
   const {
     inputState: nameInputState,
-    onChange: onNameInputChange,
+    onChange: handleNameInputChange,
     reset: resetNameInput,
   } = useValidatedState('');
 
@@ -36,30 +39,39 @@ function PopupWithSignUpForm({
   };
 
   const handleSignUp = () => {
-    openSignUpMessagePopup();
+    setIsLoading(true);
+    setServerError('');
+    onSignUp(emailInputState.value, passwordInputState.value, nameInputState.value)
+      .catch((err) => setServerError(err.message))
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
     if (!isOpen) {
       resetInputs();
+      setServerError('');
     }
   }, [isOpen]);
 
   return (
     <PopupWithForm
-      isOpen={isOpen}
-      onClose={onClose}
       formTitle="Регистрация"
       submitButtonCaption="Зарегистрироваться"
-      isSubmitButtonActive={
-        emailInputState.isValid && passwordInputState.isValid && nameInputState.isValid
-      }
-      handleSubmit={handleSignUp}
+      serverError={serverError}
       additionalAction={{
         text: 'или',
         buttonCaption: 'Войти',
-        handler: openLoginPopup,
+        handler: onOpenLoginPopup,
       }}
+      isOpen={isOpen}
+      isSubmitButtonActive={
+        !isLoading
+        && emailInputState.isValid
+        && passwordInputState.isValid
+        && nameInputState.isValid
+      }
+      onClose={onClose}
+      onSubmit={handleSignUp}
     >
       <label className="form__input-label" htmlFor="signup-email">
         Email
@@ -70,8 +82,9 @@ function PopupWithSignUpForm({
           name="email"
           placeholder="Введите почту"
           required
+          disabled={isLoading}
           value={emailInputState.value}
-          onChange={onEmailInputChange}
+          onChange={handleEmailInputChange}
         />
         <span className="form__input-error">{emailInputState.errorMessage}</span>
       </label>
@@ -85,8 +98,9 @@ function PopupWithSignUpForm({
           name="password"
           placeholder="Введите пароль"
           required
+          disabled={isLoading}
           value={passwordInputState.value}
-          onChange={onPasswordInputChange}
+          onChange={handlePasswordInputChange}
         />
         <span className="form__input-error">{passwordInputState.errorMessage}</span>
       </label>
@@ -102,8 +116,9 @@ function PopupWithSignUpForm({
           minLength="2"
           maxLength="30"
           required
+          disabled={isLoading}
           value={nameInputState.value}
-          onChange={onNameInputChange}
+          onChange={handleNameInputChange}
         />
         <span className="form__input-error">{nameInputState.errorMessage}</span>
       </label>

@@ -5,7 +5,7 @@ import RemoveIcon from '../../svg/RemoveIcon/RemoveIcon';
 
 function RemoveButton({
   className = '',
-  handleClick,
+  onClick,
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -22,7 +22,7 @@ function RemoveButton({
       type="button"
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      onClick={handleClick}
+      onClick={onClick}
     >
       <RemoveIcon isHovered={isHovered} />
     </button>

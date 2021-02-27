@@ -10,26 +10,24 @@
   transition: background-color .15s ease-out;
 }
 
-.accent-button:focus {
-  outline: none;
-}
-
-.accent-button_state_active {
+.accent-button:enabled {
   color: #fff;
   background-color: #2f71e5;
   box-shadow: 0px 5px 15px rgba(14, 16, 57, 0.2);
 }
 
-.accent-button_state_active:hover {
+.accent-button:hover {
   cursor: pointer;
   background-color: #347eff;
 }
 
-.accent-button_state_active:focus {
+.accent-button:focus {
+  outline: none;
   background-color: #2a65cc;
 }
 
-.accent-button_state_inactive {
+.accent-button:disabled {
+  cursor: default;
   color: #b6bcbf;
   background-color: #e6e8eb;
 }

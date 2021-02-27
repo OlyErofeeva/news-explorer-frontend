@@ -39,7 +39,7 @@ const socialNetworksLinks = [
   },
   {
     text: 'Facebook',
-    link: 'https://t.me/oly_erofeeva', // TODO: заменить ссылку на fb
+    link: 'https://t.me/oly_erofeeva',
     icon: FacebookIcon,
   },
 ];

@@ -5,32 +5,32 @@ import ModalWindow from '../ModalWindow/ModalWindow';
 import AccentButton from '../ui/AccentButton/AccentButton';
 
 function PopupWithForm({
-  isOpen,
-  onClose,
   formTitle = '',
   submitButtonCaption = '',
-  isSubmitButtonActive,
-  handleSubmit,
-  serverError = 'Тест: Ошибка на сервере',
+  serverError = '',
   children,
   additionalAction,
+  isOpen,
+  isSubmitButtonActive,
+  onClose,
+  onSubmit,
 }) {
-  const submitHandler = (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
-    handleSubmit();
+    onSubmit();
   };
 
   return (
     <ModalWindow
-      isOpen={isOpen}
-      onClose={onClose}
       title={formTitle}
       additionalAction={additionalAction}
+      isOpen={isOpen}
+      onClose={onClose}
     >
       <form
         className="form"
         noValidate
-        onSubmit={submitHandler}
+        onSubmit={handleSubmit}
       >
         {children}
 
@@ -38,7 +38,7 @@ function PopupWithForm({
         <AccentButton
           caption={submitButtonCaption}
           isSubmit
-          isActive={isSubmitButtonActive}
+          disabled={!isSubmitButtonActive}
           className="form__submit-button"
         />
       </form>

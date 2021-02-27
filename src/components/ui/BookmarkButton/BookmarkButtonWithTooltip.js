@@ -8,7 +8,7 @@ function BookmarkButtonWithTooltip({
   tooltipText,
   className = '',
   isSelected = false,
-  handleClick,
+  onClick,
 }) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -32,7 +32,7 @@ function BookmarkButtonWithTooltip({
         type="button"
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
+        onClick={onClick}
       >
         <BookmarkIcon isHovered={isHovered} isSelected={isSelected} />
       </button>

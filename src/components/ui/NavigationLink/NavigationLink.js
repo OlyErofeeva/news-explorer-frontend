@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import './NavigationLink.css';
 
 function NavigationLink({
@@ -9,17 +10,17 @@ function NavigationLink({
   isDarkTheme = false,
 }) {
   return (
-    <a
+    <Link
+      to={link}
       className={`
         navigation-link
         ${isDarkTheme ? 'navigation-link_theme_dark' : 'navigation-link_theme_light'}
         ${isSelected ? 'navigation-link_selected' : ''}
         ${className}
       `}
-      href={link}
     >
       {text}
-    </a>
+    </Link>
   );
 }
 

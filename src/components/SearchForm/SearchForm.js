@@ -3,7 +3,7 @@ import './SearchForm.css';
 
 import AccentButton from '../ui/AccentButton/AccentButton';
 
-function SearchForm({ className, submitHandler }) {
+function SearchForm({ isLoading, className, onSubmit }) {
   const [keyword, setKeyword] = useState('');
 
   const handleKeywordInputChange = (event) => {
@@ -12,7 +12,7 @@ function SearchForm({ className, submitHandler }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    submitHandler(keyword.trim().toLowerCase());
+    onSubmit(keyword.trim().toLowerCase());
   };
 
   return (
@@ -38,10 +38,12 @@ function SearchForm({ className, submitHandler }) {
           placeholder="Введите тему новости"
           type="text"
           required
+          disabled={isLoading}
           value={keyword}
           onChange={handleKeywordInputChange}
         />
         <AccentButton
+          disabled={isLoading}
           caption="Искать"
           className="search-form__submit-button"
         />

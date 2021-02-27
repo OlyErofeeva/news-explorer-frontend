@@ -5,25 +5,36 @@ import Header from '../Header/Header';
 import SavedNewsHeader from '../SavedNewsHeader/SavedNewsHeader';
 import Preloader from '../Preloader/Preloader';
 import NewsCardList from '../NewsCardList/NewsCardList';
-import bookmarksApiResponse from '../../db/bookmarksApiResponse';
 
-function SavedNews({ isLoggedIn, handleLogout }) {
+function SavedNews({
+  isLoggedIn,
+  onLogout,
+  getSavedNews,
+  onServerError,
+  onRemoveBookmark,
+}) {
   const [bookmarks, setBookmarks] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
 
-  const getBookmarks = () => bookmarksApiResponse;
-
-  const onRemoveBookmark = (bookmarkId) => {
-    const newBookmarks = bookmarks.filter((item) => item._id !== bookmarkId);
-    setBookmarks(newBookmarks);
+  const handleRemoveBookmark = (bookmarkId) => {
+    onRemoveBookmark(bookmarkId)
+      .then(() => {
+        const newBookmarks = bookmarks.filter((item) => item._id !== bookmarkId);
+        setBookmarks(newBookmarks);
+      })
+      .catch((err) => onServerError(err.message));
   };
 
   useEffect(() => {
     setIsLoading(true);
-    setBookmarks(getBookmarks());
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 2000);
+    getSavedNews()
+      .then((response) => {
+        setBookmarks(response);
+      })
+      .catch((err) => onServerError(err.message))
+      .finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -31,10 +42,12 @@ function SavedNews({ isLoggedIn, handleLogout }) {
       <Header
         isLoggedIn={isLoggedIn}
         selectedNavLink="bookmarks"
-        handleLogout={handleLogout}
+        onLogout={onLogout}
       />
       <main className="saved-news-wrapper">
-        <SavedNewsHeader />
+        {!isLoading && (
+          <SavedNewsHeader bookmarks={bookmarks} />
+        )}
         <section className="saved-news">
           <div className="saved-news__content">
             {isLoading
@@ -44,7 +57,7 @@ function SavedNews({ isLoggedIn, handleLogout }) {
                   cards={bookmarks}
                   isLoggedIn
                   isSavedNewsList
-                  onRemoveBookmark={onRemoveBookmark}
+                  onRemoveButtonClick={handleRemoveBookmark}
                 />
               )}
           </div>

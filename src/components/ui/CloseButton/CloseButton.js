@@ -6,13 +6,13 @@ import CloseIcon from '../../svg/CloseIcon/CloseIcon';
 function CloseButton({
   className = '',
   isDarkTheme,
-  handleClick,
+  onClick,
 }) {
   return (
     <button
       className={`close-button ${className}`}
       type="button"
-      onClick={handleClick}
+      onClick={onClick}
     >
       <CloseIcon isDarkTheme={isDarkTheme} />
     </button>

@@ -6,7 +6,7 @@ function SecondaryButton({
   isSubmit = false,
   isDarkTheme = false,
   className = '',
-  handleClick,
+  onClick,
   Icon,
 }) {
   return (
@@ -17,9 +17,9 @@ function SecondaryButton({
         ${className}
       `}
       type={isSubmit ? 'submit' : 'button'}
-      onClick={handleClick}
+      onClick={onClick}
     >
-      {caption}
+      <span className="secondary-button__caption">{caption}</span>
       { Icon && <Icon className="secondary-button__icon" isDarkTheme={isDarkTheme} />}
     </button>
   );

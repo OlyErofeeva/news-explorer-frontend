@@ -3,25 +3,27 @@ import './NewsCardList.css';
 
 import NewsCard from '../NewsCard/NewsCard';
 
-// next stage TODO: добавить пейджирование для результатов news api
-
 function NewsCardList({
   cards,
   isLoggedIn,
   isFoundNewsList,
   isSavedNewsList,
-  onRemoveBookmark,
+  onBookmarkButtonClick,
+  onRemoveButtonClick,
+  onOpenSignUpPopup,
 }) {
   return (
     <ul className="news-card-list">
       {cards.map((item) => (
-        <li key={item.text}>
+        <li key={item.link}>
           <NewsCard
             card={item}
             isFoundNewsCard={isFoundNewsList}
             isSavedNewsCard={isSavedNewsList}
             isLoggedIn={isLoggedIn}
-            onRemoveBookmark={onRemoveBookmark}
+            onBookmarkButtonClick={onBookmarkButtonClick}
+            onRemoveButtonClick={onRemoveButtonClick}
+            onOpenSignUpPopup={onOpenSignUpPopup}
           />
         </li>
       ))}

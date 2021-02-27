@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './PopupWithForm.css';
 
 import PopupWithForm from './PopupWithForm';
@@ -8,18 +8,21 @@ import useValidatedState from '../../utils/useValidatedState';
 function PopupWithLoginForm({
   isOpen,
   onClose,
-  openSignUpPopup,
-  handleLogin,
+  onLogin,
+  onOpenSignUpPopup,
 }) {
+  const [isLoading, setIsLoading] = useState(false);
+  const [serverError, setServerError] = useState('');
+
   const {
     inputState: emailInputState,
-    onChange: onEmailInputChange,
+    onChange: handleEmailInputChange,
     reset: resetEmailInput,
   } = useValidatedState('');
 
   const {
     inputState: passwordInputState,
-    onChange: onPasswordInputChange,
+    onChange: handlePasswordInputChange,
     reset: resetPasswordInput,
   } = useValidatedState('');
 
@@ -28,27 +31,37 @@ function PopupWithLoginForm({
     resetPasswordInput('');
   };
 
+  const handleLogin = () => {
+    setIsLoading(true);
+    setServerError('');
+    onLogin(emailInputState.value, passwordInputState.value)
+      .catch((err) => setServerError(err.message))
+      .finally(() => setIsLoading(false));
+  };
+
   useEffect(() => {
     if (!isOpen) {
       resetInputs();
+      setServerError('');
     }
   }, [isOpen]);
 
   return (
     <PopupWithForm
-      isOpen={isOpen}
-      onClose={onClose}
       formTitle="Вход"
       submitButtonCaption="Войти"
-      isSubmitButtonActive={
-        emailInputState.isValid && passwordInputState.isValid
-      }
-      handleSubmit={handleLogin}
+      serverError={serverError}
       additionalAction={{
         text: 'или',
         buttonCaption: 'Зарегистрироваться',
-        handler: openSignUpPopup,
+        handler: onOpenSignUpPopup,
       }}
+      isOpen={isOpen}
+      isSubmitButtonActive={
+        !isLoading && emailInputState.isValid && passwordInputState.isValid
+      }
+      onSubmit={handleLogin}
+      onClose={onClose}
     >
       <label className="form__input-label" htmlFor="login-email">
         Email
@@ -59,8 +72,9 @@ function PopupWithLoginForm({
           name="email"
           placeholder="Введите почту"
           required
+          disabled={isLoading}
           value={emailInputState.value}
-          onChange={onEmailInputChange}
+          onChange={handleEmailInputChange}
         />
         <span className="form__input-error">{emailInputState.errorMessage}</span>
       </label>
@@ -74,8 +88,9 @@ function PopupWithLoginForm({
           name="password"
           placeholder="Введите пароль"
           required
+          disabled={isLoading}
           value={passwordInputState.value}
-          onChange={onPasswordInputChange}
+          onChange={handlePasswordInputChange}
         />
         <span className="form__input-error">{passwordInputState.errorMessage}</span>
       </label>

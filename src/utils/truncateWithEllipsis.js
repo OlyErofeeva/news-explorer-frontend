@@ -1,5 +1,5 @@
 const truncateWithEllipsis = (originalString, allowedLength) => {
-  if (originalString.length <= allowedLength) {
+  if (!originalString || originalString.length <= allowedLength) {
     return originalString;
   }
 
