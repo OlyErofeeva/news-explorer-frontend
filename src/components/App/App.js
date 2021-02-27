@@ -10,6 +10,7 @@ import Footer from '../Footer/Footer';
 import PopupWithLoginForm from '../PopupWithForm/PopupWithLoginForm';
 import PopupWithSignUpForm from '../PopupWithForm/PopupWithSignUpForm';
 import PopupSignedUp from '../PopupSignedUp/PopupSignedUp';
+import ModalWindow from '../ModalWindow/ModalWindow';
 
 import newsApi from '../../utils/NewsApi';
 import mainApi from '../../utils/MainApi';
@@ -31,11 +32,15 @@ function App() {
   const [isSignUpPopupOpen, setIsSignUpPopupOpen] = useState(false);
   const [isLoginPopupOpen, setIsLoginPopupOpen] = useState(false);
   const [isSignUpMessagePopupOpen, setIsSignUpMessagePopupOpen] = useState(false);
+  const [isModalWithMessageOpen, setIsModalWithMessageOpen] = useState(false);
+  const [modalWindowMessage, setModalWindowMessage] = useState('');
 
   const closeAllPopups = () => {
     setIsSignUpPopupOpen(false);
     setIsLoginPopupOpen(false);
     setIsSignUpMessagePopupOpen(false);
+    setIsModalWithMessageOpen(false);
+    setModalWindowMessage('');
   };
 
   const openSignUpMessagePopup = () => {
@@ -124,6 +129,11 @@ function App() {
       .removeArticleBookmark(token, articleId);
   };
 
+  const handleServerError = (errorMessage) => {
+    setModalWindowMessage(errorMessage);
+    setIsModalWithMessageOpen(true);
+  };
+
   useEffect(() => {
     if (isLoggedIn) {
       const token = localStorage.getItem('token');
@@ -136,8 +146,11 @@ function App() {
             name: response.name,
           });
         })
-        // TODO catch: logged in false & remove token
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          handleServerError(err.message);
+          setIsLoggedIn(false);
+          localStorage.removeItem('token');
+        });
     }
   }, [isLoggedIn]);
 
@@ -172,6 +185,7 @@ function App() {
             isLoggedIn={isLoggedIn}
             onLogout={handleLogout}
             getSavedNews={getSavedNews}
+            onServerError={handleServerError}
             onRemoveBookmark={removeBookmark}
           />
           <Route path="/">
@@ -183,6 +197,7 @@ function App() {
               searchNews={searchNews}
               onCreateBookmark={createBookmark}
               onRemoveBookmark={removeBookmark}
+              onServerError={handleServerError}
             />
           </Route>
         </Switch>
@@ -207,6 +222,13 @@ function App() {
           onClose={closeAllPopups}
           onOpenLoginPopup={openLoginPopup}
         />
+
+        <ModalWindow
+          isOpen={isModalWithMessageOpen}
+          onClose={closeAllPopups}
+          title={modalWindowMessage}
+        />
+
       </div>
     </CurrentUserContext.Provider>
   );

@@ -16,6 +16,7 @@ function Main({
   searchNews,
   onCreateBookmark,
   onRemoveBookmark,
+  onServerError,
 }) {
   const [shownNews, setShownNews] = useState([]);
   const [isSearchStarted, setIsSearchStarted] = useState(false);
@@ -67,7 +68,7 @@ function Main({
           localStorage.setItem('cachedNews', JSON.stringify(updatedCachedArticles));
           setShownNews(updatedCachedArticles.slice(0, shownNews.length));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => onServerError(err.message));
     } else {
       onRemoveBookmark(article._id)
         .then(() => {
@@ -80,7 +81,7 @@ function Main({
           localStorage.setItem('cachedNews', JSON.stringify(updatedCachedArticles));
           setShownNews(updatedCachedArticles.slice(0, shownNews.length));
         })
-        .catch((err) => console.log(err));
+        .catch((err) => onServerError(err.message));
     }
   };
 

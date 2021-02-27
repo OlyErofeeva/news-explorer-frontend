@@ -10,6 +10,7 @@ function SavedNews({
   isLoggedIn,
   onLogout,
   getSavedNews,
+  onServerError,
   onRemoveBookmark,
 }) {
   const [bookmarks, setBookmarks] = useState([]);
@@ -21,7 +22,7 @@ function SavedNews({
         const newBookmarks = bookmarks.filter((item) => item._id !== bookmarkId);
         setBookmarks(newBookmarks);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => onServerError(err.message));
   };
 
   useEffect(() => {
@@ -30,7 +31,7 @@ function SavedNews({
       .then((response) => {
         setBookmarks(response);
       })
-      .catch((err) => console.log(err))
+      .catch((err) => onServerError(err.message))
       .finally(() => {
         setIsLoading(false);
       });

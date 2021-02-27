@@ -142,6 +142,24 @@ class MainApi {
     }).then((res) => handleResponse(res));
   }
 
+  /**
+   *createArticleBookmark example response:
+    {
+      "_id":"603956b6c4057e1615b01291",
+      "keyword":"кот",
+      "title":"Заголовок",
+      "text":"Превью текста",
+      "date":"2021-02-19T18:37:05Z",
+      "source":"Habr.com",
+      "link":"https://habr.com/ru/post/",
+      "image":"https://habr.com/",
+      "__v":0
+    }
+
+   * @param {string} token
+   * @param {string} articleId
+   */
+
   removeArticleBookmark(token, articleId) {
     return fetch(`${this._baseUrl}/articles/${articleId}`, {
       method: 'DELETE',
